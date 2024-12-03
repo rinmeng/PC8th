@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
     }
 
     res.render('register', {
-        title: 'Register for PC8th.',
+        title: 'Register on PC8th',
         registerMessage: registerMessage,
         registerInput: registerInput
     });

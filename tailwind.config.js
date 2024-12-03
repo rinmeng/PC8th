@@ -22,6 +22,8 @@ module.exports = {
         'forms-10': 'fallIn 1s ease-out 1.8s forwards',
         'forms-11': 'fallIn 1s ease-out 1.9s forwards',
         'forms-12': 'fallIn 1s ease-out 2s forwards',
+        'button-1': 'fallIn 1s ease-out 2.35s forwards',
+        'button-2': 'fallIn 1s ease-out 2.45s forwards',
         'fade-in': 'fadeIn 1s ease-out 1.5s forwards',
         'fade-in-instant': 'fadeIn 1s ease-out forwards',
       },
