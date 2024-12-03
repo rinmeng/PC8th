@@ -1,7 +1,8 @@
-
 CREATE DATABASE shop;
+go
 
 USE shop;
+go
 
 
 DROP TABLE review;
