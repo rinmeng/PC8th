@@ -9,7 +9,8 @@ router.get('/', async function (req, res, next) {
         res.write('<title>PC8th Order List</title>');
         res.write('<link href="/style.css" rel="stylesheet">');
         res.write('<body class="text-white bg-slate-600">');
-        res.write(`<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+        res.write(`<nav class="t1000e z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+                        <h1 id="navhint" class="t500e opacity-0 text-7xl">&larr;</h1>
                         <!-- Logo -->
                         <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
 
@@ -53,7 +54,7 @@ router.get('/', async function (req, res, next) {
                     </div>
                     </nav>`);
         res.write('<div class=" opacity-0 animate-fade-in-instant">');
-        res.write('<h1 class="text-7xl my-5 font-light text-center">Order List</h1>');
+        res.write('<div class="pb-52"> </div>');
 
         let pool = await sql.connect(dbConfig);
         console.log('Connection successful! Executing query...');
@@ -125,7 +126,50 @@ router.get('/', async function (req, res, next) {
         }
 
 
-        res.write('</div></div></body>');
+        res.write(`</div>
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                    const navbar = document.querySelector('nav');
+                    const navhint = document.getElementById('navhint');
+                    let lastScrollTop = 0;
+                    const scrollThreshold = 500;
+
+                    window.addEventListener('scroll', function () {
+                        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                        if (currentScrollTop > scrollThreshold) {
+                        // Scrolled past 500px
+                        navbar.classList.add('translate-x-[45.83%]');
+                        navbar.classList.add('hover:-translate-x-1/2');
+                        navhint.classList.remove('opacity-0');
+                        navhint.classList.add('opacity-100');
+                        } else {
+                        // Back to top or above threshold
+                        navbar.classList.remove('translate-x-[45.83%]');
+                        navbar.classList.remove('hover:-translate-x-1/2');
+                        navhint.classList.remove('opacity-100');
+                        navhint.classList.add('opacity-0');
+                        }
+
+                        lastScrollTop = currentScrollTop;
+                    });
+
+                    // Add hover effect to hide navhint
+                    navbar.addEventListener('mouseenter', function () {
+                        navhint.classList.remove('opacity-100');
+                        navhint.classList.add('opacity-0');
+                    });
+
+                    navbar.addEventListener('mouseleave', function () {
+                        if (window.pageYOffset > scrollThreshold) {
+                        navhint.classList.remove('opacity-0');
+                        navhint.classList.add('opacity-100');
+                        }
+                    });
+                    });
+                </script>
+            </body>`);
         res.end();
 
     } catch (err) {

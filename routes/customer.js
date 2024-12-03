@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
             res.write('<link href="/style.css" rel="stylesheet">');
             res.write('<body class="text-white bg-slate-600">');
 
-            res.write(`<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+            res.write(`<nav class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
                         <!-- Logo -->
                         <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
     
@@ -79,6 +79,7 @@ router.get('/', function (req, res, next) {
             let customer = result.recordset[0];
 
             res.write('<div class="opacity-0 animate-fade-in-instant">');
+            res.write('<div class="pb-52"> </div>');
             res.write('<h1 class="text-7xl my-5 font-light text-center">Customer Information</h1>');
             res.write('<div class="container mx-auto px-4 max-w-4xl">');
 

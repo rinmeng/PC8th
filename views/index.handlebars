@@ -1,11 +1,12 @@
-<div>
+<body class="text-center ">
   <nav
-    class="z-10 fixed w-full bg-gradient-to-t from-transparent to-slate-700 flex justify-between items-center px-10 py-8 text-2xl">
+    class="t1000e z-10 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto my-6 glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+    <h1 id="navhint" class="t500e opacity-0 text-7xl">&larr;</h1>
     <!-- Logo -->
     <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
 
     <!-- Navigation Links -->
-    <div class="flex justify-center w-full">
+    <div class="flex justify-center w-3/4">
       <!-- Product List -->
       <a href="/listprod" class="relative group p-3">
         <div class="opacity-50 group-hover:opacity-100 t200e">Product List</div>
@@ -46,7 +47,6 @@
     </div>
   </nav>
 
-  <!-- Banner Section (Optional) -->
   <div class="relative w-full opacity-0 animate-fade-in-instant">
     <div class="relative h-screen">
       <img src="/img/rtx5000.jpg" class="absolute w-full h-full object-cover brightness-50 -z-10" alt="RTX 5000" />
@@ -58,8 +58,8 @@
           {{else}}
           <span class="block opacity-0 animate-fall-1">Welcome back
             <strong>
-              {{username}}
-            </strong>!
+              {{username}}!
+            </strong>
           </span>
           <span class="block text-5xl opacity-0 animate-fall-2">Shop the all
             new RTX 5090.</span>
@@ -76,7 +76,6 @@
           <span class="block text-3xl opacity-0 animate-fall-3">Now available
             at PC8th.</span>
           {{/if}}
-
         </h1>
         {{#if admin}}
         <div class="flex flex-col items-center justify-center space-y-6">
@@ -110,9 +109,20 @@
         <a href="/listprod"
           class="mt-8 relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md">
           <div class="flex items-center text-white">
-            <span class="text-2xl">Browse Products</span>
+            <span class="text-2xl">Browse All Products</span>
             <span class="overflow-hidden w-0 group-hover:w-8 t200e">
               <span class="pl-2 text-2xl">&rarr;</span>
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+          </div>
+        </a>
+        <a href="#category"
+          class="mt-8 relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md">
+          <div class="flex items-center text-white">
+            <span class="text-2xl">Browse Categories</span>
+            <span class="overflow-hidden w-0 group-hover:w-8 t200e">
+              <span class="pl-2 text-2xl">&darr;</span>
             </span>
           </div>
           <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
@@ -122,12 +132,121 @@
       </div>
     </div>
   </div>
+  <div id="category" class="relative w-full h-screen overflow-hidden">
+    <img src="/img/intelarc.jpg" alt="Parts Categories"
+      class="absolute inset-0 left w-full h-full object-cover brightness-75" />
+    <div class="absolute text-center w-full items-center justify-center">
+      <h1 class="w-full mt-10 title font-extralight">
+        Browse our parts, by categories.
+      </h1>
+      <div class="flex flex-wrap justify-center my-10">
+        <a href="/listprod?search=CPU"
+          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+          <h1 class="title text-5xl py-5">
+            CPU
+          </h1>
+        </a>
+        <a href="/listprod?search=GPU"
+          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+          <h1 class="title text-5xl py-5">
+            GPU
+          </h1>
+        </a>
+        <a href="/listprod?search=RAM"
+          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+          <h1 class="title text-5xl py-5">
+            RAM
+          </h1>
+        </a>
+        <a href="/listprod?search=MOBO"
+          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+          <h1 class="title text-5xl py-5">
+            MOBO
+          </h1>
+        </a>
+        <a href="/listprod?search=PSU"
+          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+          <h1 class="title text-5xl py-5">
+            PSU
+          </h1>
+        </a>
+        <a href="/listprod?search=Storage"
+          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+          <h1 class="title text-5xl py-5">
+            Storage
+          </h1>
+        </a>
+        <a href="/listprod?search=Cooling"
+          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+          <h1 class="title text-5xl py-5">
+            Cooling
+          </h1>
+        </a>
+        <a href="/listprod?search=Case"
+          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+          <h1 class="title text-5xl py-5 translate-x-">
+            Case
+          </h1>
+        </a>
+      </div>
 
-  <div class="fixed z-50 text-gray-400 bottom-4 left-1/2 transform -translate-x-1/2 ">
+    </div>
+  </div>
+
+
+
+
+
+  <div class="glass-slate py-1 px-2 rounded-xl fixed z-50 text-gray-400 bottom-4 left-1/2 transform -translate-x-1/2 ">
     <h1>
       &copy; 2024 PC8th by
-      <span><a class="underline hover:text-gray-500 t200e" href="https://github.com/rinmeng">Rin Meng</a></span> &amp;
-      <span><a class="underline hover:text-gray-500 t200e" href="https://github.com/noahstew">Noah Stewart</a></span>
+      <span><a class="underline hover:text-gray-500 t200e" target="_blank" href="https://rinmeng.github.io">Rin
+          Meng</a></span>
+      &amp;
+      <span><a class="underline hover:text-gray-500 t200e " target="_blank" href="https://github.com/noahstew">Noah
+          Stewart</a></span>
     </h1>
   </div>
-</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const navbar = document.querySelector('nav');
+      const navhint = document.getElementById('navhint');
+      let lastScrollTop = 0;
+      const scrollThreshold = 500;
+
+      window.addEventListener('scroll', function () {
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScrollTop > scrollThreshold) {
+          // Scrolled past 500px
+          navbar.classList.add('translate-x-[45.83%]');
+          navbar.classList.add('hover:-translate-x-1/2');
+          navhint.classList.remove('opacity-0');
+          navhint.classList.add('opacity-100');
+        } else {
+          // Back to top or above threshold
+          navbar.classList.remove('translate-x-[45.83%]');
+          navbar.classList.remove('hover:-translate-x-1/2');
+          navhint.classList.remove('opacity-100');
+          navhint.classList.add('opacity-0');
+        }
+
+        lastScrollTop = currentScrollTop;
+      });
+
+      // Add hover effect to hide navhint
+      navbar.addEventListener('mouseenter', function () {
+        navhint.classList.remove('opacity-100');
+        navhint.classList.add('opacity-0');
+      });
+
+      navbar.addEventListener('mouseleave', function () {
+        if (window.pageYOffset > scrollThreshold) {
+          navhint.classList.remove('opacity-0');
+          navhint.classList.add('opacity-100');
+        }
+      });
+    });
+  </script>
+</body>

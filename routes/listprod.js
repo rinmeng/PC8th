@@ -46,22 +46,43 @@ router.get('/', function (req, res, next) {
       };
 
       const currentSorts = getCurrentSort(sortBy);
+      let request = pool.request();
 
-      let sqlQuery = `
+      if (searchTerm) {
+        // Handling valid categories (case-insensitive)
+        if (["CPU", "MOBO", "RAM", "GPU", "PSU", "Cooling", "Storage", "Case"].map(c => c.toLowerCase()).includes(searchTerm.toLowerCase())) {
+          sqlQuery = `
+            SELECT p.productId, p.productName, p.productPrice, p.productDesc, c.categoryName 
+            FROM product p 
+            JOIN category c ON p.categoryId = c.categoryId
+            WHERE LOWER(c.categoryName) = LOWER(@categoryTerm)
+            ORDER BY ${sortOptions[sortBy] ? sortOptions[sortBy] : 'productName'}
+        `;
+          request.input('categoryTerm', sql.NVarChar, searchTerm);
+        } else {
+          // For other searches by product name (case-insensitive)
+          sqlQuery = `
+            SELECT p.productId, p.productName, p.productPrice, p.productDesc, c.categoryName 
+            FROM product p 
+            JOIN category c ON p.categoryId = c.categoryId
+            WHERE p.productName LIKE @searchTerm
+            ORDER BY ${sortOptions[sortBy] ? sortOptions[sortBy] : 'productName'}
+        `;
+          request.input('searchTerm', sql.NVarChar, `%${searchTerm}%`);
+        }
+      } else {
+        // If no searchTerm, query all products
+        sqlQuery = `
         SELECT p.productId, p.productName, p.productPrice, p.productDesc, c.categoryName 
         FROM product p 
         JOIN category c ON p.categoryId = c.categoryId
-        ${searchTerm ? "WHERE p.productName LIKE @searchTerm" : ""}
-        ORDER BY ${sortOptions[sortBy]}
-      `;
-
-      let request = pool.request();
-      if (searchTerm) {
-        request.input('searchTerm', sql.NVarChar, `%${searchTerm}%`);
+        ORDER BY ${sortOptions[sortBy] ? sortOptions[sortBy] : 'productName'}`;
       }
+
       let results = await request.query(sqlQuery);
 
-      res.write(`<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+      res.write(`<nav class="t1000e z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+                    <h1 id="navhint" class="t500e opacity-0 text-7xl">&larr;</h1>
                     <!-- Logo -->
                     <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
 
@@ -104,20 +125,39 @@ router.get('/', function (req, res, next) {
                             <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
                         `}
                     </div>
-                </nav>`);
+                  </nav>`);
+
+
       res.write("<div class='opacity-0 animate-fade-in-instant'>");
 
-      res.write("<h2 class='title my-5'>Product List</h2>");
-
+      res.write('<div class="pb-44"> </div>');
       res.write(`
-        <form method="get" class="flex flex-col items-center justify-center space-y-6">
-            <input class='forms w-1/3 text-white' type="text" name="search"
-              placeholder="Search for PC parts"
+        <form method="get" class="flex flex-row items-center justify-center mt-10 relative">
+          <!-- Search Bar Container -->
+          <div class="relative w-1/2">
+            <div class="group p-4 absolute top-1 left-0 flex items-center ">
+              <button class="w-6 h-0.5 " type="submit">
+                  <img class="opacity-50 group-hover:opacity-100 t200e" src="/img/searchicon.png" alt="Search Icon">
+                </button>
+              </div>
+            <input
+              class="inner-forms bg-slate-700 w-full py-4 pl-12 pr-12"
+              type="text"
+              name="search"
+              placeholder="Search for PC parts by name or category..."
               value="${searchTerm}"
             >
-          <div>
-            <button class='btn mx-2' type="submit">Search</button>
-            <a href="/listprod" class='btn-red mx-2'>Reset</a>
+            <!-- Buttons inside the Search Bar -->
+            <div class="group p-4 absolute inset-y-0 right-0 flex items-center">
+              <a
+                href="/listprod"
+                class="opacity-50 p-5 group-hover:opacity-100 t200e"
+              >
+                <!-- Cross Using Spans -->
+                <span class="absolute w-6 h-0.5 bg-white transform rotate-45"></span>
+                <span class="absolute w-6 h-0.5 bg-white transform -rotate-45"></span>
+              </a>
+            </div>
           </div>
         </form>
       `);
@@ -167,10 +207,10 @@ router.get('/', function (req, res, next) {
                 ${!['priceAsc', 'priceDesc'].includes(sortBy) ? '&darr;&uarr;' : ''}
               </a>
             </div>
-        <div>Add to Cart</div>
+            <div>Add to Cart</div>
           </div>
-          
-      <div class="space-y-2">
+            
+        <div class="space-y-2">
         `);
 
       // Group products by category for better organization
@@ -194,7 +234,6 @@ router.get('/', function (req, res, next) {
             <div class="font-medium">
               <a class="text-blue-400 hover:underline flex" href="/product?id=${encodeURIComponent(product.productId)}">
                 ${product.productName}
-
                 <img class="w-3 h-3 ml-1" src="/img/newtab.png">
               </a>
             </div>
@@ -210,19 +249,61 @@ router.get('/', function (req, res, next) {
         </div>
         `);
       }
-
       res.write(`
       </div>
         </div >
       `);
 
       res.write("</div>");
+      res.write(`
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.querySelector('nav');
+            const navhint = document.getElementById('navhint');
+            let lastScrollTop = 0;
+            const scrollThreshold = 500;
+
+            window.addEventListener('scroll', function () {
+              const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+              if (currentScrollTop > scrollThreshold) {
+                // Scrolled past 500px
+                navbar.classList.add('translate-x-[45.83%]');
+                navbar.classList.add('hover:-translate-x-1/2');
+                navhint.classList.remove('opacity-0');
+                navhint.classList.add('opacity-100');
+              } else {
+                // Back to top or above threshold
+                navbar.classList.remove('translate-x-[45.83%]');
+                navbar.classList.remove('hover:-translate-x-1/2');
+                navhint.classList.remove('opacity-100');
+                navhint.classList.add('opacity-0');
+              }
+
+              lastScrollTop = currentScrollTop;
+            });
+
+            // Add hover effect to hide navhint
+            navbar.addEventListener('mouseenter', function () {
+              navhint.classList.remove('opacity-100');
+              navhint.classList.add('opacity-0');
+            });
+
+            navbar.addEventListener('mouseleave', function () {
+              if (window.pageYOffset > scrollThreshold) {
+                navhint.classList.remove('opacity-0');
+                navhint.classList.add('opacity-100');
+              }
+            });
+          });
+        </script>
+              `);
       res.write("</body>");
       res.end();
     } catch (err) {
       console.dir(err);
       res.write(`
-      < div class= "p-4 bg-red-500 text-white" >
+      <div class= "p-4 bg-red-500 text-white" >
         <h3>Error: ${JSON.stringify(err)}</h3>
         </div >
       `);

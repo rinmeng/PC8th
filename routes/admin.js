@@ -13,8 +13,8 @@ router.get("/", function (req, res, next) {
 
   if (!(req.session.user === "admin")) {
     res.write(`
-    <body class="bg-slate-600 h-screen">
-      <nav class="text-white z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+    <body class="text-white bg-slate-600 h-screen">
+      <nav class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
         <!-- Logo -->
         <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
 
@@ -57,30 +57,33 @@ router.get("/", function (req, res, next) {
             `}
         </div>
       </nav>
-        <div class="text-center mp5 opacity-0 animate-fade-in-instant">
-          <!-- Header Section -->
-          <div class="text-center space-y-4">
-              <h1 class="text-7xl font-extralight text-white tracking-tight">Administration</h1>
-              <h1 class="text-4xl font-extrabold text-red-400">
-                You do not have permission to view this page.
-              </h1>
-              ${req.session.authenticated ? `
-                <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
-                <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-              ` : `
+
+      <div class="pb-52"></div>
+
+      <div class="text-center mp5 opacity-0 animate-fade-in-instant">
+        <!-- Header Section -->
+        <div class="text-center space-y-4">
+            <h1 class="text-7xl font-extralight text-white tracking-tight">Administration</h1>
+            <h1 class="text-4xl font-extrabold text-red-400">
+              You do not have permission to view this page.
+            </h1>
+            ${req.session.authenticated ? `
+              <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
               <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-              `}
-          </div>
-          
-          <!-- Login Button -->
-          <div class="flex justify-center">
-              <form action="/login" method="get">
-                  <button class="btn">
-                      Login &rarr;
-                  </button>
-              </form>
-          </div>
+            ` : `
+            <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
+            `}
         </div>
+        
+        <!-- Login Button -->
+        <div class="flex justify-center">
+            <form action="/login" method="get">
+                <button class="btn">
+                    Login &rarr;
+                </button>
+            </form>
+        </div>
+      </div>
     </body>   
     `);
     res.end();
@@ -100,8 +103,8 @@ router.get("/", function (req, res, next) {
 
       let result = await pool.request().query(salesQuery);
       res.write(`
-          <body class="bg-slate-600 h-screen">
-          <nav class="text-white z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+          <body class="text-white bg-slate-600 h-screen">
+          <nav class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
             <!-- Logo -->
             <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
 
@@ -144,27 +147,28 @@ router.get("/", function (req, res, next) {
                 `}
             </div>
           </nav>
-            <!-- Header -->
-            <div class="container mx-auto px-4 py-12  opacity-0 animate-fade-in-instant">
-              <div class="text-center mb-12">
-                <h1 class="title mb-4">Sales Reports</h1>
-                <p class="text-slate-300 text-xl">Daily Revenue Overview</p>
+          <!-- Header -->
+          <div class="container mx-auto px-4 py-12  opacity-0 animate-fade-in-instant">
+            <div class='pb-44'></div>
+            <div class="text-center mb-12">
+              <h1 class="title mb-4">Sales Reports</h1>
+              <p class="text-slate-300 text-xl">Daily Revenue Overview</p>
+            </div>
+
+            <!-- Grid Container -->
+            <div class="max-w-6xl mx-auto bg-slate-800 rounded-2xl shadow-2xl overflow-hidden">
+              <!-- Grid Header -->
+              <div class="grid grid-cols-2 gap-4 bg-slate-900 p-6 border-b border-slate-700">
+                <div class="text-lg font-semibold text-white px-6">
+                Order Date (DD-MM-YYYY)
+                </div>
+                <div class="text-lg font-semibold text-white px-6">
+                Total Amount
+                </div>
               </div>
 
-              <!-- Grid Container -->
-              <div class="max-w-6xl mx-auto bg-slate-800 rounded-2xl shadow-2xl overflow-hidden">
-                <!-- Grid Header -->
-                <div class="grid grid-cols-2 gap-4 bg-slate-900 p-6 border-b border-slate-700">
-                  <div class="text-lg font-semibold text-white px-6">
-                  Order Date (DD-MM-YYYY)
-                  </div>
-                  <div class="text-lg font-semibold text-white px-6">
-                  Total Amount
-                  </div>
-                </div>
-
-                <!-- Grid Body -->
-                <div class="divide-y divide-slate-700">
+              <!-- Grid Body -->
+              <div class="divide-y divide-slate-700">
       `);
 
       for (let i = 0; i < result.recordset.length; i++) {

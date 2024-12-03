@@ -9,7 +9,7 @@ router.get("/", function (req, res, next) {
 
   // Navigation
   res.write(`
-    <nav class="text-white z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+    <nav class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
         <!-- Logo -->
         <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
 
@@ -53,6 +53,9 @@ router.get("/", function (req, res, next) {
         </div>
       </nav>
   `);
+
+  res.write('<div class="opacity-0 animate-fade-in-instant">');
+  res.write('<div class="pb-52"> </div>');
 
   // Authorization check for admin
   if (req.session.user !== "admin") {
@@ -246,6 +249,7 @@ router.get("/", function (req, res, next) {
         }
       })();
     } else {
+      res.write("</div>");
       res.write("</main></body>");
       res.end();
     }

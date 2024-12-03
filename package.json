@@ -1,8 +1,11 @@
 {
-  "name": "cosc304lab7",
+  "name": "pc8th",
   "version": "1.0.0",
-  "description": "COSC 304 Lab 7 Node Variant",
-  "repository": "N/A",
+  "description": "pc8th (lab 10 project)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/N/A.git"
+  },
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -25,5 +28,9 @@
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/N/A/issues"
+  },
+  "homepage": "https://github.com/N/A#readme"
 }
