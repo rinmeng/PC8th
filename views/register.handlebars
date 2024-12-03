@@ -1,6 +1,7 @@
-<div>
+<body>
     <nav
-        class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+        class="t1000e translate-x-[45.83%] z-10 mt-6 fixed left-1/2 transform hover:-translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+        <h1 id="navhint" class="t500e opacity-100 text-7xl">&larr;</h1>
         <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
 
         <!-- Navigation Links -->
@@ -46,74 +47,114 @@
         </div>
     </nav>
 
-    <div class="pb-28"> </div>
 
-    {{#if loginMessage}}
-    <h1 class="bg-red-500 text-white text-center p-3">
-        {{loginMessage}} <!-- Display the login message -->
-    </h1>
-    {{/if}}
-    <div class="flex items-center justify-center bg-slate-600 text-white min-h-screen animate-fade-in-instant">
-        <div class="w-1/2 space-y-8 p-10 glass-slate rounded-xl">
-            <h1 class="title text-4xl font-semibold text-center">
-                Let's get to know you better
-            </h1>
+    <div
+        class="relative h-screen w-full flex items-center justify-center bg-slate-600 text-white animate-fade-in-instant">
+        <img class="absolute object-cover w-full h-full brightness-50" src="/img/ryzen7.jpg">
 
-            {{#if loginMessage}}
-            <div class="bg-red-500 text-white text-center p-3 rounded">
-                {{loginMessage}}
+        <div class="absolute  w-full space-y-8">
+
+            <div class="my-10 title font-extralight text-7xl text-center">
+                <h1 class="animate-fall-1 ">
+                    PC8th
+                    <br>
+                    <h1 class="text-xl opacity-0 animate-fall-1">
+                        Register and get your dream PC today.
+                    </h1>
+                </h1>
             </div>
-            {{/if}}
 
-            <form class="space-y-4" name="RegisterForm" method="post" action="/register">
-                <div class="grid grid-cols-2 gap-4">
+            <form class="my-0 space-y-4 w-1/2 m-auto glass-slate py-5 px-10 rounded-xl opacity-0 animate-forms-1"
+                name="RegisterForm" method="post" action="/validateRegister">
+
+                <h1 class="title font-extralight text-4xl text-center opacity-0 animate-forms-2">Let's get you geared
+                    up.</h1>
+                {{#if registerMessage}}
+                <h1 class=" text-red-400 text-center">
+                    {{registerMessage}} <!-- Display the register message -->
+                </h1>
+                {{/if}}
+                <div class="grid grid-cols-1 gap-4 ">
+                    {{#if registerMessage}}
+                    <input type="text" name="userid" maxlength="20"
+                        class="inner-forms border-red-700  text-center opacity-0 animate-forms-4 "
+                        placeholder="Username" required>
+                    {{else}}
+                    <input type="text" name="userid" maxlength="20"
+                        class="inner-forms text-center opacity-0 animate-forms-5 " placeholder=" Username" required>
+                    {{/if}}
+                    <input type="password" name="password" maxlength="30"
+                        class="inner-forms text-center w-full opacity-0 animate-forms-6"
+                        value="{{registerInput.password}}" placeholder="Password" required>
+                </div>
+
+                <div class="grid grid-cols-1 gap-2">
+                    <input type="email" name="email" maxlength="50" value="{{registerInput.email}}"
+                        class="inner-forms text-center w-full opacity-0 animate-forms-7" placeholder="Email" required>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 opacity-0 animate-forms-8">
                     <input type="text" name="firstName" maxlength="40" class="inner-forms text-center"
-                        placeholder="First Name" required>
+                        value="{{registerInput.firstName}}" placeholder="First Name" required>
 
                     <input type="text" name="lastName" maxlength="40" class="inner-forms text-center"
-                        placeholder="Last Name" required>
+                        value="{{registerInput.lastName}}" placeholder="Last Name" required>
                 </div>
 
-                <input type="email" name="email" maxlength="50" class="inner-forms text-center w-full"
-                    placeholder="Email" required>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" name="phonenum" maxlength="20" class="inner-forms text-center"
-                        placeholder="Phone Number">
-
-                    <input type="text" name="userid" maxlength="20" class="inner-forms text-center"
-                        placeholder="Username" required>
-                </div>
-
-                <input type="password" name="password" maxlength="30" class="inner-forms text-center w-full"
-                    placeholder="Password" required>
-
-                <div class="grid grid-cols-3 gap-4">
-                    <input type="text" name="address" maxlength="50" class="inner-forms text-center"
+                <div class="grid grid-cols-1 gap-4 ">
+                    <input type="text" name="address" maxlength="50"
+                        class="inner-forms text-center opacity-0 animate-forms-9" value="{{registerInput.address}}"
                         placeholder="Address">
-
-                    <input type="text" name="city" maxlength="40" class="inner-forms text-center" placeholder="City">
-
-                    <input type="text" name="state" maxlength="20" class="inner-forms text-center" placeholder="State">
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-4 gap-4 opacity-0 animate-forms-10">
+                    <input type="text" name="city" maxlength="40" class="inner-forms text-center"
+                        value="{{registerInput.city}}" placeholder="City">
+
+                    <input type="text" name="state" maxlength="20" class="inner-forms text-center"
+                        value="{{registerInput.state}}" placeholder="State/Province">
+
                     <input type="text" name="postalCode" maxlength="20" class="inner-forms text-center"
-                        placeholder="Postal Code">
+                        value="{{registerInput.postalCode}}" placeholder="Postal Code">
 
                     <input type="text" name="country" maxlength="40" class="inner-forms text-center"
-                        placeholder="Country">
+                        value="{{registerInput.country}}" placeholder="Country">
                 </div>
 
-                <button type="submit" class="btn w-full mt-4">
+                <div class="grid grid-cols-1 gap-4 opacity-0 animate-forms-9">
+                    <input type="text" name="phonenum" maxlength="20" class="inner-forms text-center"
+                        value="{{registerInput.phonenum}}" placeholder="Phone Number">
+                </div>
+
+                <button type="submit" class="btn w-full mt-4 opacity-0 animate-forms-11">
                     Create Account &rarr;
                 </button>
 
-                <div class="text-center">
+                <div class="text-center opacity-0 animate-forms-12 text-gray-500">
                     Already have an account?
-                    <a href="/login" class="underline hover:text-blue-300">Login here</a>
+                    <a href="/login" class="underline link">Login here</a>
                 </div>
+
             </form>
         </div>
     </div>
-</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.querySelector('nav');
+            const navhint = document.getElementById('navhint');
+
+            // Reveal navhint on hover
+            navbar.addEventListener('mouseenter', function () {
+                navhint.classList.remove('opacity-100');
+                navhint.classList.add('opacity-0');
+            });
+
+            navbar.addEventListener('mouseleave', function () {
+                navhint.classList.remove('opacity-0');
+                navhint.classList.add('opacity-100');
+            });
+        });
+
+    </script>
+</body>

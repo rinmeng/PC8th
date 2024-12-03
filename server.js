@@ -13,6 +13,7 @@ let checkout = require('./routes/checkout');
 let order = require('./routes/order');
 let login = require('./routes/login');
 let validateLogin = require('./routes/validateLogin');
+let validateRegister = require('./routes/validateRegister');
 let logout = require('./routes/logout');
 let admin = require('./routes/admin');
 let product = require('./routes/product');
@@ -80,9 +81,11 @@ app.use(session({
   }
 }))
 
+
 // Setting up the rendering engine
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
+
 
 // Setting up where static assets should
 // be served from.
@@ -101,6 +104,7 @@ app.use('/checkout', checkout);
 app.use('/order', order);
 app.use('/login', login);
 app.use('/validateLogin', validateLogin);
+app.use('/validateRegister', validateRegister);
 app.use('/logout', logout);
 app.use('/admin', admin);
 app.use('/product', product);

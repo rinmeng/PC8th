@@ -12,6 +12,8 @@ router.get("/", function (req, res, next) {
 
 
   if (!(req.session.user === "admin")) {
+
+
     res.write(`
     <body class="text-white bg-slate-600 h-screen">
       <nav class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
@@ -89,11 +91,9 @@ router.get("/", function (req, res, next) {
     res.end();
     return;
   }
-
   (async function () {
     try {
       let pool = await sql.connect(dbConfig);
-
       salesQuery = `
             SELECT orderDate, SUM(totalAmount) as totalAmount
             FROM ordersummary
@@ -205,6 +205,8 @@ router.get("/", function (req, res, next) {
           </body>
       `);
       res.end();
+
+
 
       return;
     } catch (err) {

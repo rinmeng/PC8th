@@ -1,6 +1,7 @@
-<div>
+<body>
     <nav
-        class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+        class="t1000e translate-x-[45.83%] z-10 mt-6 fixed left-1/2 transform hover:-translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+        <h1 id="navhint" class="t500e opacity-100 text-7xl">&larr;</h1>
         <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
 
         <!-- Navigation Links -->
@@ -27,7 +28,6 @@
             </a>
         </div>
 
-
         <!-- User Authentication -->
         <div class="text-center items-center">
             {{#if username}}
@@ -42,54 +42,83 @@
             <!-- If not logged in, show login button -->
             <a class="opacity-100 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
             {{/if}}
-
         </div>
     </nav>
 
-    <div class="pb-52"> </div>
+    <div
+        class="relative h-screen w-full flex items-center justify-center bg-slate-600 text-white animate-fade-in-instant">
+        <img class="absolute object-cover w-full h-full brightness-50" src="/img/intel9.jpg">
 
-    {{#if loginMessage}}
-    <h1 class="bg-red-500 text-white text-center p-3">
-        {{loginMessage}} <!-- Display the login message -->
-    </h1>
-    {{/if}}
-    <div class="flex items-center justify-center bg-slate-600 text-white animate-fade-in-instant">
-
-
-        <div class=" w-1/3 h-3/4 space-y-8 mp5 glass-slate rounded-xl ">
-            <div>
-                <h1 class="title text-4xl font-semibold">
-                    {{#if userid}}
-                    Welcome, {{username}}
-                    {{else}}
-                    Login to your PC8th account
-                    {{/if}}
+        <div class="absolute w-full space-y-8">
+            <div class="my-10 title font-extralight text-7xl text-center">
+                <h1 class="animate-fall-1">
+                    PC8th
+                    <br>
+                    <h1 class="text-xl opacity-0 animate-fall-1">
+                        Where the best PCs are built.
+                    </h1>
                 </h1>
             </div>
 
-            <form class="my-0 space-y-4 " name="MyForm" method="post" action="/validateLogin">
-                <div class="rounded-md shadow-sm space-y-2">
-                    <div>
-                        <input type="text" name="username" maxlength="100" class="inner-forms text-center"
-                            placeholder="Username" required>
-                    </div>
+            {{#if username}}
+            <div class="w-1/2 m-auto glass-slate py-5 px-10 rounded-xl text-center">
+                <h1 class="title text-4xl font-semibold">
+                    Welcome, {{username}}.
+                    <br>
+                    <span class="text-2xl">You are already logged in.</span>
+                    <br>
+                    <span class="text-base">Not you? <a href="/logout" class="link underline">Logout</a></span>
+                </h1>
+            </div>
+            {{else}}
+            <form class="my-0 space-y-4 w-1/2 m-auto glass-slate py-5 px-10 rounded-xl opacity-0 animate-forms-1"
+                name="MyForm" method="post" action="/validateLogin">
 
-                    <div>
-                        <input type="password" name="password" maxlength="100" class="inner-forms text-center"
-                            placeholder="Password" required>
-                    </div>
+                <h1 class="title font-extralight text-4xl text-center opacity-0 animate-forms-2">Login to your account
+                </h1>
+
+                {{#if loginMessage}}
+                <h1 class="text-red-400 text-center">
+                    {{loginMessage}} <!-- Display the login message -->
+                </h1>
+                {{/if}}
+
+                <div class="grid grid-cols-1 gap-4">
+                    <input type="text" name="username" maxlength="100"
+                        class="inner-forms text-center opacity-0 animate-forms-3" placeholder="Username" required>
+
+                    <input type="password" name="password" maxlength="100"
+                        class="inner-forms text-center w-full opacity-0 animate-forms-4" placeholder="Password"
+                        required>
                 </div>
 
-                <div>
-                    <button type="submit" name="Submit2" class="btn w-full">
-                        Log In &rarr;
-                    </button>
-                </div>
-                <div class="">
-                    Not a PC8th member?
-                    <br><a href="/register" class="link underline">Register here.</a>
+                <button type="submit" class="btn w-full mt-4 opacity-0 animate-forms-5">
+                    Log In &rarr;
+                </button>
+
+                <div class="text-center opacity-0 animate-forms-6">
+                    Not a PC8th member? <a href="/register" class="underline link">Register here</a>
                 </div>
             </form>
+            {{/if}}
         </div>
     </div>
-</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.querySelector('nav');
+            const navhint = document.getElementById('navhint');
+
+            // Reveal navhint on hover
+            navbar.addEventListener('mouseenter', function () {
+                navhint.classList.remove('opacity-100');
+                navhint.classList.add('opacity-0');
+            });
+
+            navbar.addEventListener('mouseleave', function () {
+                navhint.classList.remove('opacity-0');
+                navhint.classList.add('opacity-100');
+            });
+        });
+    </script>
+</body>

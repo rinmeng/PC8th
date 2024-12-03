@@ -5,13 +5,15 @@ const sql = require('mssql');
 router.get('/', function (req, res, next) {
     res.setHeader('Content-Type', 'text/html');
 
+
+
     (async function () {
         try {
             res.write(`
         <title>PC8th Checkout</title>
         <link href="/style.css" rel="stylesheet">
         <body class="h-screen bg-slate-600  text-white opacity-0 animate-fade-in-instant">
-            <nav class="text-white z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+            <nav class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
                 <!-- Logo -->
                 <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
 
@@ -69,8 +71,8 @@ router.get('/', function (req, res, next) {
 
                     const user = userResult.recordset[0];
                     const password = user.password;
-
                     // Write checkout summary
+                    res.write(`<div class=" py-24"></div>`)
                     res.write(`
                         <div class="w-1/2 bg-slate-700 p-8 m-auto rounded-lg shadow-lg my-5">
                             <h1 class="text-4xl font-bold text-center mb-6">Checkout</h1>
@@ -101,6 +103,10 @@ router.get('/', function (req, res, next) {
                     return;
                 }
             } else {
+                req.session.lastVisitedURL = req.originalUrl;
+
+
+                res.write(`<div class=" py-24"></div>`)
                 res.write(`
                         <div class="w-1/3 bg-slate-700 p-8 m-auto rounded-lg shadow-lg space-y-4 my-5" >
                         <h1 class="text-4xl font-bold text-center ">Checkout</h1>
