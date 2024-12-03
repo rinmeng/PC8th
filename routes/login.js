@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
     res.render('login', {
         title: "Login Screen",
         loginMessage: loginMessage,
-        username: req.session.authenticatedUser || false // Pass the username if authenticated
+        username: req.session.user || false // Pass the username if authenticated
     });
 });
 

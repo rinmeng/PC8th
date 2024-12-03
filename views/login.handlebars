@@ -59,8 +59,11 @@
         <div class=" w-1/3 h-3/4 space-y-8 mp5 glass-slate rounded-xl ">
             <div>
                 <h1 class="title text-4xl font-semibold">
+                    {{#if userid}}
+                    Welcome, {{username}}
+                    {{else}}
                     Login to your PC8th account
-
+                    {{/if}}
                 </h1>
             </div>
 
@@ -81,6 +84,10 @@
                     <button type="submit" name="Submit2" class="btn w-full">
                         Log In &rarr;
                     </button>
+                </div>
+                <div class="">
+                    Not a PC8th member?
+                    <br><a href="/register" class="link underline">Register here.</a>
                 </div>
             </form>
         </div>
