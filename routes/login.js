@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 
     // Pass username and loginMessage to the view
     res.render('login', {
-        title: "Login Screen",
+        title: "Login to PC8th",
         loginMessage: loginMessage,
         username: req.session.user || false // Pass the username if authenticated
     });

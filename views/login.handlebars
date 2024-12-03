@@ -58,15 +58,25 @@
 
         <div class=" w-1/3 h-3/4 space-y-8 mp5 glass-slate rounded-xl ">
             <div>
+                {{#if username}}
                 <h1 class="title text-4xl font-semibold">
-                    {{#if userid}}
-                    Welcome, {{username}}
-                    {{else}}
-                    Login to your PC8th account
-                    {{/if}}
+                    Welcome, {{username}}.
+                    <br>
+                    <h1 class="title text-4xl font-semibold">You are already logged in.</h1>
+                    <br>
+                    <h1>Not you? <a href="/logout" class="link underline">Logout</a></h1>
                 </h1>
+                {{else}}
+                <h1 class="title text-4xl font-semibold">
+                    Login to your PC8th account
+                </h1>
+
+                {{/if}}
             </div>
 
+            {{#if username}}
+
+            {{else}}
             <form class="my-0 space-y-4 " name="MyForm" method="post" action="/validateLogin">
                 <div class="rounded-md shadow-sm space-y-2">
                     <div>
@@ -87,9 +97,11 @@
                 </div>
                 <div class="">
                     Not a PC8th member?
-                    <br><a href="/register" class="link underline">Register here.</a>
+                    <br><a href="/register" class="link underline">Register here</a>
                 </div>
             </form>
+            {{/if}}
+
         </div>
     </div>
 </div>

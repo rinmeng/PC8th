@@ -5,9 +5,9 @@ const sql = require("mssql");
 // Handle POST request for login
 router.post("/", async function (req, res) {
   let authenticatedUser = await validateLogin(req, res);
-
   if (authenticatedUser) {
-    res.redirect("/"); // Redirect to homepage after successful login
+    const redirectUrl = req.session.lastVisitedURL || '/';
+    res.redirect(redirectUrl); // Redirect to homepage after successful login
   } else {
     res.redirect("/login"); // Redirect back to login page if authentication fails
   }
