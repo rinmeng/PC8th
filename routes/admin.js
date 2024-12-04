@@ -148,13 +148,17 @@ router.get("/", function (req, res, next) {
       </nav>
       <div class="pb-52"></div
       >
+      <div class="text-center text-6xl pb-4">
+        <h1 class="text-white">Admin Page</h1>
+      <div>
+
       <div class="grid grid-cols-2 gap-4">
-  <div class="bg-red-500 justify-center text-center">
-    <h1 class="text-white">Chart To be here</h1>
-  </div> 
+    <div class="font-bold w-5/6 text-4xl text-center mb-2 p-2  bg-slate-800 rounded-t-lg">
+      <h1>Recent Sales</h1>    
+    </div>
   <div>
     <div class="font-bold w-5/6 text-4xl text-center mb-2 p-2  bg-slate-800 rounded-t-lg">
-      <h1>Admin Panel </h1>    
+      <h1>Operations</h1>    
     </div>
     <div class="grid grid-cols-2 w-5/6 ">
     <div class="flex justify-start">
@@ -164,12 +168,12 @@ router.get("/", function (req, res, next) {
       <a class="bg-slate-300 m-2 w-5/6 text-slate-950 text-center transition-transform duration-300 ease-in-out p-2 text-lg rounded-lg hover:scale-105 hover:bg-slate-900 hover:text-slate-200" href="admin/customers">View Customers</a>
     </div>
     <div class="flex justify-start">
-      <a class="bg-slate-300 m-2 w-5/6 text-slate-950 text-center transition-transform duration-300 ease-in-out p-2 text-lg rounded-lg hover:scale-105 hover:bg-slate-900 hover:text-slate-200" href="admin/orders" href="admin/addProduct">Add New Product</a>
+      <a class="bg-slate-300 m-2 w-5/6 text-slate-950 text-center transition-transform duration-300 ease-in-out p-2 text-lg rounded-lg hover:scale-105 hover:bg-slate-900 hover:text-slate-200" href="admin/addProduct" href="admin/addProduct">Add New Product</a>
     </div>
     <div class="flex justify-end">
-      <a class="bg-slate-300 m-2 w-5/6 text-slate-950 text-center transition-transform duration-300 ease-in-out p-2 text-lg rounded-lg hover:scale-105 hover:bg-slate-900 hover:text-slate-200" href="admin/orders" href="admin/updateProduct">Update/Delete Product</a>
+      <a class="bg-slate-300 m-2 w-5/6 text-slate-950 text-center transition-transform duration-300 ease-in-out p-2 text-lg rounded-lg hover:scale-105 hover:bg-slate-900 hover:text-slate-200" href="admin/updateProducts" href="admin/updateProduct">Update/Delete Product</a>
      </div> 
-      <a class="bg-slate-950 my-3 col-span-2 w-full text-slate-200 text-center transition-transform duration-300 ease-in-out p-2 text-lg rounded-lg hover:scale-105 hover:bg-slate-200 hover:text-slate-950" href="admin/orders" href="admin/ship">Ship Orders</a>      
+      <a class="bg-slate-950 my-3 col-span-2 w-full text-slate-200 text-center transition-transform duration-300 ease-in-out p-2 text-lg rounded-lg hover:scale-105 hover:bg-slate-200 hover:text-slate-950" href="admin/ship">Ship Orders</a>      
   </div>
 </div>
 
@@ -681,7 +685,69 @@ router.get("/customers", function (req, res, next) {
   })();
 });
 
-router.get("/addProduct", function (req, res, next) {
+// GET route to serve the form
+router.get("/addProduct", function (req, res) {
+  // if (req.session.user !== "admin") {
+  //     return res.status(403).send("Unauthorized access");
+  // }
+  res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <title>Add Product</title>
+          <link href="/style.css" rel="stylesheet">
+      </head>
+      <body class="bg-slate-600">
+          <!-- Form content -->
+          <form id="productForm">
+              <label for="productname">Product Name:</label>
+              <input id="productname" name="productname" type="text" placeholder="e.g Nvidia RTX 3060" required />
+              <label for="productprice">Product Price:</label>
+              <input id="productprice" name="productprice" type="number" min="1" step="any" placeholder="e.g 299.99" required />
+              <label for="productdescription">Product Description:</label>
+              <input id="productdescription" name="productdescription" type="text" placeholder="8GB VRAM, Black, etc." required />
+                <label for="productcategory">Product Category:</label>
+  <select id="productcategory" name="productcategory" required>
+    <option value="">Select a category</option>
+    <option value="1">CPU</option>
+    <option value="2">Motherboard</option>
+    <option value="3">RAM</option>
+    <option value="4">GPU</option>
+    <option value="5">PSU</option>
+    <option value="6">Cooling</option>
+    <option value="7">Storage</option>
+    <option value="8">Case</option>
+    </select>
+  <button type="submit">Add Product</button>
+          </form>
+          <script src="/addProduct.js"></script>
+      </body>
+      </html>
+  `);
+
+  document.getElementById('productForm').addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    // Collect form data
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+
+    // Send data to the server
+    const response = await fetch('/addProduct', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+        alert('Product added successfully!');
+    } else {
+        alert('Failed to add product.');
+    }
+});
+});
+
+router.get("/updateProducts", function (req, res, next) {
   res.setHeader("Content-Type", "text/html");
   res.write('<link href="/style.css" rel="stylesheet">');
   res.write(`<title>Admin Page</title>`);
@@ -1115,4 +1181,3 @@ router.get("/ship", function (req, res, next) {
 });
 
 module.exports = router;
-

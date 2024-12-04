@@ -21,7 +21,6 @@ let removecart = require('./routes/removecart');
 let removeallcart = require('./routes/removeallcart');
 let displayImage = require('./routes/displayImage');
 let customer = require('./routes/customer');
-let ship = require('./routes/ship');
 let register = require('./routes/register');
 
 const app = express();
@@ -39,6 +38,9 @@ In bash:
   ./sqlcmd -U sa -P 304#sa#pw -C -e -i /SQLServer_shop.ddl
 In SQLCMD:
   SELECT name FROM sys.databases;
+  go
+
+  USE shop
   go
 */
 
@@ -110,7 +112,6 @@ app.use('/admin', admin);
 app.use('/product', product);
 app.use('/displayImage', displayImage);
 app.use('/customer', customer);
-app.use('/ship', ship);
 app.use('/removecart', removecart);
 app.use('/removeallcart', removeallcart);
 app.use('/register', register);
