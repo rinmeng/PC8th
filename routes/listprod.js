@@ -304,7 +304,7 @@ router.get('/', function (req, res, next) {
       console.dir(err);
       res.write(`
       <div class= "p-4 bg-red-500 text-white" >
-        <h3>Error: ${JSON.stringify(err)}</h3>
+        <h3>Error: ${err}</h3>
         </div >
       `);
       res.end();

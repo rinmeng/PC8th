@@ -692,21 +692,43 @@ router.get("/addProduct", function (req, res) {
   // }
   res.send(`
       <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <title>Add Product</title>
-          <link href="/style.css" rel="stylesheet">
-      </head>
-      <body class="bg-slate-600">
-          <!-- Form content -->
-          <form id="productForm">
-              <label for="productname">Product Name:</label>
-              <input id="productname" name="productname" type="text" placeholder="e.g Nvidia RTX 3060" required />
-              <label for="productprice">Product Price:</label>
-              <input id="productprice" name="productprice" type="number" min="1" step="any" placeholder="e.g 299.99" required />
-              <label for="productdescription">Product Description:</label>
-              <input id="productdescription" name="productdescription" type="text" placeholder="8GB VRAM, Black, etc." required />
-                <label for="productcategory">Product Category:</label>
+<html lang="en">
+  <head>
+    <title>Add Product</title>
+    <link href="/style.css" rel="stylesheet" />
+  </head>
+  <body class="bg-slate-600">
+    <!-- Form content -->
+    <form id="productForm" method="POST" action="addProduct">
+  <label for="productname">Product Name:</label>
+  <input
+    id="productname"
+    name="productname"
+    type="text"
+    placeholder="e.g Nvidia RTX 3060"
+    required
+  />
+  <label for="productprice">Product Price:</label>
+  <input
+    id="productprice"
+    name="productprice"
+    type="number"
+    min="1"
+    step="any"
+    placeholder="e.g 299.99"
+    required
+  />
+  <label for="productdescription">Product Description:</label>
+  <input
+    id="productdescription"
+    name="productdescription"
+    type="text"
+    placeholder="8GB VRAM, Black, etc."
+    required
+  />
+  <label for="productimage">Product Image URL:</label>
+  <input id="productimage" name="productimage" type="url" required />
+  <label for="productcategory">Product Category:</label>
   <select id="productcategory" name="productcategory" required>
     <option value="">Select a category</option>
     <option value="1">CPU</option>
@@ -717,34 +739,55 @@ router.get("/addProduct", function (req, res) {
     <option value="6">Cooling</option>
     <option value="7">Storage</option>
     <option value="8">Case</option>
-    </select>
+  </select>
   <button type="submit">Add Product</button>
-          </form>
-          <script src="/addProduct.js"></script>
-      </body>
-      </html>
+</form>
+
+  </body>
+</html>
   `);
-
-  document.getElementById('productForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-
-    // Collect form data
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-
-    // Send data to the server
-    const response = await fetch('/addProduct', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-    });
-
-    if (response.ok) {
-        alert('Product added successfully!');
-    } else {
-        alert('Failed to add product.');
-    }
 });
+
+router.post("/addProduct",  function (req, res) {
+  // if (req.session.user !== "admin") {
+  //     return res.status(403).send("Unauthorized access");
+  // }
+  const body = req.body;
+
+  const [productName, productPrice, productDescription, productImageURL, categoryId] = [
+    body.productname.toString(),
+    body.productprice.toString(),
+    body.productdescription.toString(),
+    body.productimage,
+    body.productcategory,
+  ];
+
+  console.log("Product Image URL: ",productImageURL);
+
+  (async function () {
+    try {
+      let pool = await sql.connect(dbConfig);
+
+      let query = `
+        INSERT INTO product (productName, productPrice, productDesc, productImageURL, categoryId)
+        VALUES (@productName, @productPrice, @productDescription, @productImageURL, @categoryId)
+      `;
+
+      await pool
+        .request()
+        .input("productName", sql.VarChar, productName)
+        .input("productPrice", sql.Decimal, productPrice)
+        .input("productDescription", sql.VarChar, productDescription)
+        .input("productImageURL", sql.VarChar, productImageURL)
+        .input("categoryId", sql.Int, categoryId)
+        .query(query);
+
+      res.send(`Product added successfully, <a href='/admin'>Go back</a>`);
+    } catch (err) {
+      console.dir(err);
+      res.send(err + "");
+    }
+  })();
 });
 
 // TODO: NOT WORKING ATM

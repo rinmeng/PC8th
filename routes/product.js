@@ -51,6 +51,7 @@ router.get('/', function (req, res, next) {
             if (product.productImageURL) {
                 res.write(`
                     <div class="my-10">
+                        <h2 class="text-2xl">Product Image</h2>
                         <img src="${product.productImageURL}" alt="${product.productName}" 
                         class="rounded-lg shadow-lg mx-auto w-1/2 h-auto">
                     </div>
