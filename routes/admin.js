@@ -685,7 +685,7 @@ router.get("/customers", function (req, res, next) {
   })();
 });
 
-// GET route to serve the form
+// TODO NOT WORKING ATM
 router.get("/addProduct", function (req, res) {
   // if (req.session.user !== "admin") {
   //     return res.status(403).send("Unauthorized access");
@@ -747,6 +747,7 @@ router.get("/addProduct", function (req, res) {
 });
 });
 
+// TODO: NOT WORKING ATM
 router.get("/updateProducts", function (req, res, next) {
   res.setHeader("Content-Type", "text/html");
   res.write('<link href="/style.css" rel="stylesheet">');
@@ -1007,7 +1008,7 @@ router.get("/ship", function (req, res, next) {
     <main class="container mx-auto p-8">
       <h1 class="title text-center my-5">Process Order</h1>
       <div class="flex justify-center items-center m-auto w-1/3 glass-slate rounded-xl ">
-        <form action="/ship" method="get" 
+        <form action="ship" method="get" 
         class="flex flex-col p-5 rounded-lg w-full my-0 space-y-4">
             <input 
               type="text" 
