@@ -3,14 +3,11 @@ const router = express.Router();
 const auth = require("../auth");
 const sql = require("mssql");
 
-
 // DO NOT TOUCH THIS WE ARE DONE WITH MAIN.
 router.get("/", function (req, res, next) {
   // remove this line when done testing
   req.session.user = "admin";
   req.session.userid = "1";
-
-  // TODO: Include files auth.jsp and jdbc.jsp
 
   res.setHeader("Content-Type", "text/html");
   res.write('<link href="/style.css" rel="stylesheet">');
@@ -49,16 +46,20 @@ router.get("/", function (req, res, next) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            ` : `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-              `}
+              `
+            }
         </div>
       </nav>
 
@@ -71,12 +72,16 @@ router.get("/", function (req, res, next) {
               <h1 class="text-4xl font-extrabold text-red-400">
                 You do not have permission to view this page.
               </h1>
-              ${req.session.authenticated ? `
+              ${
+                req.session.authenticated
+                  ? `
                 <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
                 <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-              `: `
+              `
+                  : `
               <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-              `}
+              `
+              }
           </div>
           <!-- Login Button -->
           <div class="flex justify-center">
@@ -171,16 +176,20 @@ router.get("/", function (req, res, next) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            `: `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
+            `
+            }
         </div>
       </nav>
       `);
@@ -306,8 +315,6 @@ router.get("/", function (req, res, next) {
       res.end();
     }
   })();
-
-
 });
 
 // DO NOT TOUCH THIS WE ARE DONE WITH ORDERS.
@@ -354,16 +361,20 @@ router.get("/orders", function (req, res, next) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            `: `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
+            `
+            }
         </div>
       </nav>`);
 
@@ -376,12 +387,16 @@ router.get("/orders", function (req, res, next) {
             <h1 class="text-4xl font-extrabold text-red-400">
               You do not have permission to view this page.
             </h1>
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
               <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
               <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `: `
+            `
+                : `
             <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `}
+            `
+            }
         </div>
         
         <!-- Login Button -->
@@ -490,16 +505,20 @@ router.get("/orders", function (req, res, next) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            `: `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
+            `
+            }
         </div>
       </nav>
       `);
@@ -615,8 +634,9 @@ router.get("/customers", function (req, res, next) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated
-        ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
@@ -624,10 +644,10 @@ router.get("/customers", function (req, res, next) {
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
             `
-        : `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
             `
-      }
+            }
         </div>
       </nav>
 
@@ -640,12 +660,16 @@ router.get("/customers", function (req, res, next) {
             <h1 class="text-4xl font-extrabold text-red-400">
               You do not have permission to view this page.
             </h1>
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
               <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
               <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `: `
+            `
+                : `
             <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `}
+            `
+            }
         </div>
         
         <!-- Login Button -->
@@ -756,20 +780,26 @@ router.get("/customers", function (req, res, next) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            `: `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
+            `
+            }
         </div>
       </nav>
       `);
-      res.write(`<div class="w-full container mx-auto px-1 py-12  opacity-0 animate-fade-in-instant">`);
+      res.write(
+        `<div class="w-full container mx-auto px-1 py-12  opacity-0 animate-fade-in-instant">`
+      );
       res.write(`
             <div class="text-center mb-12">
               <h1 class="title mb-4">Customers</h1>
@@ -806,25 +836,29 @@ router.get("/customers", function (req, res, next) {
                   Customer ID: ${customerId}
                 </div>
               </div>${[
-            ['First Name', firstName],
-            ['Last Name', lastName == "" ? "null" : lastName],
-            ['Email', email],
-            ['Phone Number', phonenum],
-            ['Address', address],
-            ['City', city],
-            ['State', state],
-            ['Postal Code', postalCode],
-            ['Country', country],
-            ['User ID', userid],
-            ['Password', password],
-          ].map(([label, value]) => `
+                ["First Name", firstName],
+                ["Last Name", lastName == "" ? "null" : lastName],
+                ["Email", email],
+                ["Phone Number", phonenum],
+                ["Address", address],
+                ["City", city],
+                ["State", state],
+                ["Postal Code", postalCode],
+                ["Country", country],
+                ["User ID", userid],
+                ["Password", password],
+              ]
+                .map(
+                  ([label, value]) => `
       <div class="bg-slate-700 p-4 rounded-lg ">
         <div class="text-slate-400 text-sm mb-1">${label}</div>
         <div class="font-mono text-slate-100 bg-slate-900 p-2 rounded">
           ${value}
         </div>
       </div>
-    `).join('')}
+    `
+                )
+                .join("")}
   </div>
 `);
       }
@@ -895,16 +929,20 @@ router.get("/ship", function (req, res, next) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            `: `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
+            `
+            }
         </div>
       </nav>`);
 
@@ -917,12 +955,16 @@ router.get("/ship", function (req, res, next) {
             <h1 class="text-4xl font-extrabold text-red-400">
               You do not have permission to view this page.
             </h1>
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
               <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
               <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `: `
+            `
+                : `
             <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `}
+            `
+            }
         </div>
         
         <!-- Login Button -->
@@ -1020,21 +1062,27 @@ router.get("/ship", function (req, res, next) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            `: `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
+            `
+            }
         </div>
       </nav>
       `);
   res.write('<div class="opacity-0 animate-fade-in-instant">');
-  res.write(`<div class="py-20"><h1 class="title text-center ">Process Order</h1></div>`);
+  res.write(
+    `<div class="py-20"><h1 class="title text-center ">Process Order</h1></div>`
+  );
   res.write(`
     <main class="pb-10">
       <div class="flex justify-center items-center m-auto w-1/3 glass-slate rounded-xl ">
@@ -1117,8 +1165,7 @@ router.get("/ship", function (req, res, next) {
         let newInventories = [];
         let productIds = [];
         for (let row of result.recordset) {
-          const newInventory =
-            row.totalAvailableQuantity - row.orderedQuantity;
+          const newInventory = row.totalAvailableQuantity - row.orderedQuantity;
           const status = newInventory < 0 ? "Unavailable" : "Available";
           if (newInventory < 0) sufficientInventory = false;
 
@@ -1130,19 +1177,22 @@ router.get("/ship", function (req, res, next) {
                   <div class="text-slate-300 px-6">${row.productName}</div>
                   <div class="text-slate-300 px-6">${row.productId}</div>
                   <div class="text-slate-300 px-6">${row.orderedQuantity}</div>
-                  <div class="text-slate-300 px-6">${row.totalAvailableQuantity
-            }</div>
+                  <div class="text-slate-300 px-6">${
+                    row.totalAvailableQuantity
+                  }</div>
                   <div class="text-slate-300 px-6">
-                    <span class="font-mono ${newInventory >= 0 ? "" : "opacity-50"
-            }">
+                    <span class="font-mono ${
+                      newInventory >= 0 ? "" : "opacity-50"
+                    }">
                       ${newInventory >= 0 ? newInventory : "N/A"}
                     </span>
                   </div>
                   <div class="text-slate-300 px-6">
-                    <span class="font-mono ${status === "Unavailable"
-              ? "text-red-500"
-              : "text-green-500"
-            }">
+                    <span class="font-mono ${
+                      status === "Unavailable"
+                        ? "text-red-500"
+                        : "text-green-500"
+                    }">
                       ${status}
                     </span>
                   </div>
@@ -1205,7 +1255,6 @@ router.get("/ship", function (req, res, next) {
     res.write("</main></body>");
     res.end();
   }
-
 });
 
 // DO NOT TOUCH THIS WE ARE DONE WITH SHIPMENTS.
@@ -1252,8 +1301,9 @@ router.get("/addProduct", function (req, res) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated
-        ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
@@ -1261,10 +1311,10 @@ router.get("/addProduct", function (req, res) {
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
             `
-        : `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
             `
-      }
+            }
         </div>
       </nav>
 
@@ -1277,12 +1327,16 @@ router.get("/addProduct", function (req, res) {
             <h1 class="text-4xl font-extrabold text-red-400">
               You do not have permission to view this page.
             </h1>
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
               <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
               <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `: `
+            `
+                : `
             <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `}
+            `
+            }
         </div>
         
         <!-- Login Button -->
@@ -1300,7 +1354,9 @@ router.get("/addProduct", function (req, res) {
     return;
   }
 
-  res.write('<body class="text-white bg-slate-600 h-screen overflow-x-hidden">');
+  res.write(
+    '<body class="text-white bg-slate-600 h-screen overflow-x-hidden">'
+  );
   // Admin nav bar
   res.write(`
       <! admin nav bar -->
@@ -1381,22 +1437,25 @@ router.get("/addProduct", function (req, res) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            `: `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
+            `
+            }
         </div>
       </nav>
       `);
 
   res.write(`<div class="w-full opacity-0 animate-fade-in-instant p-5">`);
-
 
   res.write(`<div><h1 class="title text-center py-10">Add Product</h1></div>`);
   // Form to add product
@@ -1495,7 +1554,11 @@ router.get("/addProduct", function (req, res) {
                 </button>
               </div>
               <h1 class="text-center text-green-400">
-              ${req.session.addProductMessage ? req.session.addProductMessage : ""}
+              ${
+                req.session.addProductMessage
+                  ? req.session.addProductMessage
+                  : ""
+              }
               </h1>
             </form>
           </div>
@@ -1518,7 +1581,13 @@ router.post("/addProduct", function (req, res) {
 
   const body = req.body;
 
-  const [productName, productPrice, productDescription, productImageURL, categoryId] = [
+  const [
+    productName,
+    productPrice,
+    productDescription,
+    productImageURL,
+    categoryId,
+  ] = [
     body.productname.toString(),
     body.productprice.toString(),
     body.productdescription.toString(),
@@ -1557,7 +1626,7 @@ router.post("/addProduct", function (req, res) {
 });
 
 // TODO: We need to display the product once user clicks on the find product button
-// to confirm that it is what we awant to update.
+// to confirm that it is what we want to update.
 // after clicking it, it wont even display the form for you to update at all.
 // try and fix it if you can. i think it has something to do with async function
 router.get("/updateProducts", function (req, res) {
@@ -1601,16 +1670,20 @@ router.get("/updateProducts", function (req, res) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            ` : `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            ` }
+            `
+            }
         </div>
       </nav>
 
@@ -1623,12 +1696,16 @@ router.get("/updateProducts", function (req, res) {
             <h1 class="text-4xl font-extrabold text-red-400">
               You do not have permission to view this page.
             </h1>
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
               <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
               <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `: `
+            `
+                : `
             <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `}
+            `
+            }
         </div>
         
         <!-- Login Button -->
@@ -1645,7 +1722,9 @@ router.get("/updateProducts", function (req, res) {
     res.end();
     return;
   }
-  res.write('<body class="text-white bg-slate-600 h-screen overflow-x-hidden">');
+  res.write(
+    '<body class="text-white bg-slate-600 h-screen overflow-x-hidden">'
+  );
   // Admin nav bar
   res.write(`
       <! admin nav bar -->
@@ -1726,16 +1805,20 @@ router.get("/updateProducts", function (req, res) {
         <!-- Login -->
         <div class="text-center items-center">
             <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
+            ${
+              req.session.authenticated
+                ? `
                 <p class="text-white px-3 w-full">Hey,
                   <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
                       <strong>${req.session.user}</strong>
                   </a>
                 </p>
                 <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            `: `
+            `
+                : `
                 <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
+            `
+            }
         </div>
       </nav>
       `);
@@ -1747,7 +1830,7 @@ router.get("/updateProducts", function (req, res) {
       <!-- Product ID Search Form -->
       <div class="w-full h-auto flex items-center justify-center p-5">
         <div class="w-full max-w-4xl forms shadow-lg rounded-lg p-8 text-white">
-          <form class="grid grid-cols-1 gap-6" method="GET" action="updateProducts">
+          <form class="grid grid-cols-1 gap-6" method="POST" action="updateProducts">
             <div>
               <label for="productId" class="block text-sm font-medium">Enter Product ID:</label>
               <input
@@ -1765,166 +1848,205 @@ router.get("/updateProducts", function (req, res) {
           </form>
         </div>
       </div>`);
-
-  // TO FIX: This is where the product details should be displayed
-  if (req.query.productId) {
-    const productId = req.query.productId;
-    (async function () {
-      try {
-        let pool = await sql.connect(dbConfig);
-        let result = await pool.request()
-          .input("productId", sql.Int, productId)
-          .query(`
-            SELECT * FROM product WHERE productId = @productId
-          `);
-
-        let product = result.recordset[0];
-
-        // This is the forms to update the product
-        res.write(`
-            <div class="w-full h-auto flex items-center justify-center p-5">
-              <div class="w-full max-w-4xl forms shadow-lg rounded-lg p-8 text-white">
-                <form class="grid grid-cols-1 gap-6" method="POST" action="updateProduct">
-                  <input type="hidden" name="productId" value="${req.query.productId}" />
-                  
-                  <div>
-                    <label for="productname" class="block text-sm font-medium">Product Name:</label>
-                    <input
-                      id="productname"
-                      name="productname" 
-                      type="text"
-                      class="inner-forms"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label for="productprice" class="block text-sm font-medium">Product Price:</label>
-                    <input
-                      id="productprice"
-                      name="productprice"
-                      type="number"
-                      min="0.01"
-                      step="0.01"
-                      class="inner-forms"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label for="productdescription" class="block text-sm font-medium">Product Description:</label>
-                    <input
-                      id="productdescription"
-                      name="productdescription"
-                      type="text"
-                      class="inner-forms"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label for="productimage" class="block text-sm font-medium">Product Image URL:</label>
-                    <input
-                      id="productimage"
-                      name="productimage"
-                      type="url"
-                      class="inner-forms"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label for="productcategory" class="block text-sm font-medium">Product Category:</label>
-                    <select id="productcategory" name="productcategory" class="inner-forms" required>
-                      <option value="1">CPU</option>
-                      <option value="2">Motherboard</option>
-                      <option value="3">RAM</option>
-                      <option value="4">GPU</option>
-                      <option value="5">PSU</option>
-                      <option value="6">Cooling</option>
-                      <option value="7">Storage</option>
-                      <option value="8">Case</option>
-                    </select>
-                  </div>
-
-                  <div class="grid grid-cols-2 gap-4">
-                    <button type="submit" class="btn">
-                      Update Product &rarr;
-                    </button>
-                    <button type="submit" formaction="deleteProduct" class="btn bg-red-500 hover:bg-red-600">
-                      Delete Product &times;
-                    </button>
-                  </div>
-
-                  <h1 class="text-center text-green-400">
-                    ${req.session.updateProductMessage || ""}
-                  </h1>
-                </form>
-              </div>
-            </div>
-          </div>
-        </body> `);
-      } catch (err) {
-        console.error(err);
-        res.write(`<p>Error occurred: ${err.message}</p>`);
-        res.end();
-      }
-    });
-  }
   res.end();
 });
 
-// Add POST to update product
-router.post("/updateProduct", function (req, res) {
-  const { productId, productname, productprice, productdescription, productimage, productcategory } = req.body;
+let productId = null;
+
+router.post("/updateProducts", function (req, res) {
+  const body = req.body;
+  productId = body.productId;
+  // TO FIX: This is where the product details should be displayed
 
   (async function () {
     try {
       let pool = await sql.connect(dbConfig);
-      await pool.request()
-        .input('productId', sql.Int, productId)
-        .input('productName', sql.VarChar, productname)
-        .input('productPrice', sql.Decimal, productprice)
-        .input('productDesc', sql.VarChar, productdescription)
-        .input('productImageURL', sql.VarChar, productimage)
-        .input('categoryId', sql.Int, productcategory)
+      let result = await pool.request().input("productId", sql.Int, productId)
         .query(`
-          UPDATE product 
+              SELECT * FROM product WHERE productId = @productId
+            `);
+
+      let product = result.recordset[0];
+      console.log("Product: ", product);
+
+      // This is the forms to update the product
+      res.send(`
+              <div class="w-full h-auto flex items-center justify-center p-5">
+                <div class="w-full max-w-4xl forms shadow-lg rounded-lg p-8 text-white">
+                  <form class="grid grid-cols-1 gap-6" method="POST" action="updated">
+                    <h1 class="title text-center py-10">Update Product</h1>
+                    <input id="productId" type="hidden" name="productId" value="${productId}" />
+                    <p class="text-center text-white">Product ID: ${productId}</p>
+                    <div>
+                      <label for="productname" class="block text-sm font-medium">Product Name:</label>
+                      <input
+                        id="productname"
+                        name="productname" 
+                        type="text"
+                        class="inner-forms"
+                        value="${product.productName}"
+                        placeholder="${product.productName}"
+                      />
+                    </div>
+  
+                    <div>
+                      <label for="productprice" class="block text-sm font-medium">Product Price:</label>
+                      <input
+                        id="productprice"
+                        name="productprice"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        class="inner-forms"
+                        value="${product.productPrice}"
+                        placeholder="${product.productPrice}"
+                      />
+                    </div>
+  
+                    <div>
+                      <label for="productdescription" class="block text-sm font-medium">Product Description:</label>
+                      <input
+                        id="productdescription"
+                        name="productdescription"
+                        type="text"
+                        class="inner-forms"
+                        value="${product.productDesc}"
+                        placeholder="${product.productDesc}"
+                      />
+                    </div>
+  
+                    <div>
+                      <label for="productimage" class="block text-sm font-medium">Product Image URL:</label>
+                      <input
+                        id="productimage"
+                        name="productimage"
+                        type="url"
+                        class="inner-forms"
+                        value="${product.productImageURL}"
+                        placeholder="${product.productImageURL}"
+                      />
+                    </div>
+  
+                    <div>
+                      <label for="productcategory" class="block text-sm font-medium">Product Category:</label>
+                      <select id="productcategory" name="productcategory" class="inner-forms" required>
+                        <option value="1" ${
+                          product.categoryId == 1 ? "selected" : ""
+                        }>CPU</option>
+                        <option value="2" ${
+                          product.categoryId == 2 ? "selected" : ""
+                        } >Motherboard</option>
+                        <option value="3" ${
+                          product.categoryId == 3 ? "selected" : ""
+                        }>RAM</option>
+                        <option value="4" ${
+                          product.categoryId == 4 ? "selected" : ""
+                        }>GPU</option>
+                        <option value="5" ${
+                          product.categoryId == 5 ? "selected" : ""
+                        }>PSU</option>
+                        <option value="6" ${
+                          product.categoryId == 6 ? "selected" : ""
+                        }>Cooling</option>
+                        <option value="7" ${
+                          product.categoryId == 7 ? "selected" : ""
+                        }>Storage</option>
+                        <option value="8" ${
+                          product.categoryId == 8 ? "selected" : ""
+                        }>Case</option>
+                      </select>
+                    </div>
+  
+                    <div class="grid grid-cols-2 gap-4">
+                      <button type="submit" class="btn">
+                        Update Product &rarr;
+                      </button>
+                    </div>
+                  </form>
+                      <form method="POST" action="deleteProduct">
+                      <input id="productId" type="hidden" name="productId" value="${productId}" />
+                      <button type="submit" class="btn bg-red-500 hover:bg-red-600">
+                        Delete Product &times;
+                      </button>
+                      </form>
+                </div>
+              </div>
+            </div>
+          </body> `);
+    } catch (err) {
+      console.error(err);
+      res.write(`<p>Error occurred: ${err.message}</p>`);
+      res.end();
+    }
+  })();
+});
+
+router.post("/updated", function (req, res) {
+  const body = req.body;
+
+  const [
+    productId,
+    productname,
+    productprice,
+    productdescription,
+    productimage,
+    productcategory,
+  ] = [
+    body.productId,
+    body.productname,
+    body.productprice,
+    body.productdescription,
+    body.productimage,
+    body.productcategory,
+  ];
+
+  console.log("Product ID: ", productId);
+  (async function () {
+    try {
+      let pool = await sql.connect(dbConfig);
+      let result = await pool
+        .request()
+        .input("productId", sql.Int, productId)
+        .input("productName", sql.VarChar, productname)
+        .input("productPrice", sql.Decimal, productprice)
+        .input("productDesc", sql.VarChar, productdescription)
+        .input("productImageURL", sql.VarChar, productimage)
+        .input("categoryId", sql.Int, productcategory).query(`
+          UPDATE product
           SET productName = @productName, productPrice = @productPrice,
     productDesc = @productDesc, productImageURL = @productImageURL,
     categoryId = @categoryId
           WHERE productId = @productId
     `);
-
+      console.log("Product updated successfully", result);
       req.session.updateProductMessage = "Product updated successfully";
-      res.redirect('/admin/updateProducts');
+      res.redirect("/admin/updateProducts");
     } catch (err) {
       console.dir(err);
       req.session.updateProductMessage = "Error updating product: " + err;
-      res.redirect('/admin/updateProducts');
+      res.redirect("/admin/updateProducts");
     }
   })();
 });
 
 // Add POST to delete product
-router.post("/deleteProduct", function (req, res) {
-  const { productId } = req.body;
+router.post("/deleteProduct", async function (req, res) {
+  const productId = req.body.productId;
+  console.log("Product ID: ", productId);
+  try {
+    let pool = await sql.connect(dbConfig);
+    await pool.request().input("productId", sql.Int, productId).query(`
+        DELETE FROM product WHERE productId = @productId
+      `);
 
-  (async function () {
-    try {
-      let pool = await sql.connect(dbConfig);
-      await pool.request()
-        .input('productId', sql.Int, productId)
-        .query('DELETE FROM product WHERE productId=@productId');
-
-      req.session.updateProductMessage = "Product deleted successfully";
-      res.redirect('/admin/updateProducts');
-    } catch (err) {
-      console.dir(err);
-      req.session.updateProductMessage = "Error deleting product: " + err;
-      res.redirect('/admin/updateProducts');
-    }
-  })();
+    res.send(`
+      <p>Product with ID ${productId} has been deleted successfully.</p>
+      <a href="updateProducts">Go back to Products</a>
+    `);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`<p>Error occurred: ${err.message}</p>`);
+  }
 });
 
 module.exports = router;
