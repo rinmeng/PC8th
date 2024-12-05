@@ -30,7 +30,7 @@ Getting sqlserver initialized:
   docker-compose up -d
   docker exec -it cosc304-sqlserver bash
 In DDL folder:
-  docker cp SQLServer_shop.ddl cosc304-sqlserver:/
+  docker cp ./ddl/SQLServer_shop.ddl cosc304-sqlserver:/
 
 In bash: 
   cd opt/mssql-tools18/bin

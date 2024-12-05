@@ -38,7 +38,7 @@
           {{username}}
         </a>
       </p>
-      <a href=" /logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
+      <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
       {{else}}
       <!-- If not logged in, show login button -->
       <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
@@ -121,6 +121,68 @@
       </div>
     </div>
   </div>
+
+  {{#if username}}
+  {{#if userInterests.length}}
+  <div class=" bg-slate-800 text-white mx-auto px-4 py-10   h-auto">
+    <div class=" shadow-lg rounded-lg p-6">
+      <div class="space-y-3 mb-10">
+        <h1 class="title">
+          You've shown interests in
+        </h1>
+        <h1 class="title text-4xl space-x-5 py-2">
+          {{#each userInterests}}
+          <a class="glass-slate bg-slate-600 px-4 py-2 t200e rounded-xl hover:bg-slate-700"
+            href="/listprod?search={{this}}">{{this}}</a>
+          {{#unless @last}}
+          {{/unless}}
+          {{/each}}
+        </h1>
+      </div>
+
+      {{#if userInterests.length}}
+      {{else}}
+      <div class="text-center bg-gray-100 p-6 rounded-lg">
+        <p class="text-black text-lg">
+          No interests found!
+          <span class="block mt-2 text-sm text-black">
+            Explore our categories and find what you love
+          </span>
+        </p>
+      </div>
+      {{/if}}
+
+      {{#if recommendedProducts.length}}
+      <div class="bg-slate-600 border-l-4 border-green-500 p-4 rounded-r-lg">
+        <h2 class="text-4xl font-semibold text-green-400 mb-6">
+          Here's some products we recommend.
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          {{#each recommendedProducts}}
+          <div class="bg-slate-300 shadow-md rounded-lg overflow-hidden">
+            {{#if imagePath}}
+            <img src="{{imagePath}}" alt="{{productName}}" class="w-full h-64 object-cover">
+            {{/if}}
+            <div class="p-4 space-x-2">
+              <h3 class="text-lg font-bold text-gray-800 ">{{productName}}</h3>
+              <p class="text-sm text-gray-600 ">{{categoryName}}</p>
+              <p class="text-green-700 font-semibold mb-2">Price: ${{price}}</p>
+              <a href="/product?id={{productId}}" class="btn w-full block">
+                View Product &rarr;
+              </a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+  {{/if}}
+  {{/if}}
+
+
+
   <div id="category" class="relative w-full h-screen overflow-hidden">
     <img src="/img/intelarc.jpg" alt="Parts Categories"
       class="absolute inset-0 left w-full h-full object-cover brightness-75" />
@@ -129,58 +191,58 @@
         Shop PC8th by category.
       </h1>
       <div class="flex flex-wrap justify-center my-10">
-        <a href="/listprod?search=CPU"
-          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+        <a href="/listprod?search=CPU" data-index="1"
+          class="opacity-0 category-block text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t500e">
           <h1 class="title text-5xl py-5">
             CPU
           </h1>
         </a>
-        <a href="/listprod?search=GPU"
-          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+        <a href="/listprod?search=GPU" data-index="2"
+          class="opacity-0 category-block text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t500e">
           <h1 class="title text-5xl py-5">
             GPU
           </h1>
         </a>
-        <a href="/listprod?search=RAM"
-          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+        <a href="/listprod?search=RAM" data-index="3"
+          class="opacity-0 category-block text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t500e">
           <h1 class="title text-5xl py-5">
             RAM
           </h1>
         </a>
-        <a href="/listprod?search=MOBO"
-          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+        <a href="/listprod?search=MOBO" data-index="4"
+          class="opacity-0 category-block text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t500e">
           <h1 class="title text-5xl py-5">
             MOBO
           </h1>
         </a>
-        <a href="/listprod?search=PSU"
-          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+        <a href="/listprod?search=PSU" data-index="5"
+          class="opacity-0 category-block text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t500e">
           <h1 class="title text-5xl py-5">
             PSU
           </h1>
         </a>
-        <a href="/listprod?search=Storage"
-          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+        <a href="/listprod?search=Storage" data-index="6"
+          class="opacity-0 category-block text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t500e">
           <h1 class="title text-5xl py-5">
             Storage
           </h1>
         </a>
-        <a href="/listprod?search=Cooling"
-          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+        <a href="/listprod?search=Cooling" data-index="7"
+          class="opacity-0 category-block text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t500e">
           <h1 class="title text-5xl py-5">
             Cooling
           </h1>
         </a>
-        <a href="/listprod?search=Case"
-          class="text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t200e">
+        <a href="/listprod?search=Case" data-index="8"
+          class="opacity-0 category-block text-center w-1/3 glass-slate rounded-xl mp5 hover:strong-slate zoomin-sm t500e">
           <h1 class="title text-5xl py-5 translate-x-">
             Case
           </h1>
         </a>
       </div>
-
     </div>
   </div>
+
 
 
 
@@ -189,10 +251,12 @@
   <div class="glass-slate py-1 px-2 rounded-xl fixed z-50 text-gray-400 bottom-4 left-1/2 transform -translate-x-1/2 ">
     <h1>
       &copy; 2024 PC8th by
-      <span><a class="underline hover:text-gray-500 t200e" target="_blank" href="https://rinmeng.github.io">Rin
+      <span><a class="underline text-gray-300 hover:text-gray-500 t200e" target="_blank"
+          href="https://rinmeng.github.io">Rin
           Meng</a></span>
       &amp;
-      <span><a class="underline hover:text-gray-500 t200e " target="_blank" href="https://github.com/noahstew">Noah
+      <span><a class="underline text-gray-300 hover:text-gray-500 t200e " target="_blank"
+          href="https://github.com/noahstew">Noah
           Stewart</a></span>
     </h1>
   </div>
@@ -236,6 +300,27 @@
           navhint.classList.add('opacity-100');
         }
       });
+
+      const categoryBlocks = document.querySelectorAll('.category-block');
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = entry.target.getAttribute('data-index');
+            // Apply the staggered animation based on the index
+            setTimeout(() => {
+              entry.target.classList.add('opacity-100');
+            }, index * 100); // Stagger the animation by 200ms for each element
+            observer.unobserve(entry.target); // Stop observing after animation is triggered
+          }
+        });
+      }, { threshold: 0.5 }); // Trigger when 50% of the element is in view
+
+      categoryBlocks.forEach(block => {
+        observer.observe(block);
+      });
+
+
     });
   </script>
 </body>

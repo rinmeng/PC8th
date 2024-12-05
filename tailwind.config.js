@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
+        'fall-quick': 'fallIn 1s ease-in-out forwards',
         'fall-1': 'fallIn 1s ease-out forwards',
         'fall-2': 'fallIn 1s ease-out 0.75s forwards',
         'fall-3': 'fallIn 1s ease-out 1.5s forwards',

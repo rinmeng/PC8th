@@ -1,10 +1,8 @@
 CREATE DATABASE shop;
-go
-
 USE shop;
-go
 
 
+DROP VIEW userInterest;
 DROP TABLE review;
 DROP TABLE shipment;
 DROP TABLE productinventory;
@@ -144,6 +142,26 @@ CREATE TABLE review (
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE VIEW userInterest AS
+SELECT DISTINCT 
+    c.customerId,
+    c.firstName,
+    c.lastName,
+    cat.categoryName
+FROM 
+    customer c
+JOIN 
+    ordersummary os ON c.customerId = os.customerId
+JOIN 
+    orderproduct op ON os.orderId = op.orderId
+JOIN 
+    product p ON op.productId = p.productId
+JOIN 
+    category cat ON p.categoryId = cat.categoryId;
+
+
+
+
 
 INSERT INTO category(categoryName) VALUES ('CPU');
 INSERT INTO category(categoryName) VALUES ('MOBO');
@@ -153,6 +171,7 @@ INSERT INTO category(categoryName) VALUES ('PSU');
 INSERT INTO category(categoryName) VALUES ('Cooling');
 INSERT INTO category(categoryName) VALUES ('Storage');
 INSERT INTO category(categoryName) VALUES ('Case');
+
 
 -- Products
 -- CPUs
@@ -173,7 +192,7 @@ INSERT INTO product (productName, categoryId, productDesc, productPrice, product
 
 -- RAM
 INSERT INTO product (productName, categoryId, productDesc, productPrice, productImageURL, productImage) VALUES 
-('Corsair Vengeance LPX 32GB 2x16GB', 3, 'DDR4-3200 32GB RAM kit for high-performance gaming', 149.99, 'https://www.amazon.ca/Corsair-Vengeance-PC4-25600-Desktop-Memory/dp/B07RW6Z692', NULL),
+('Corsair Vengeance LPX 32GB 2x16GB', 3, 'DDR4-3200 32GB RAM kit for high-performance gaming', 149.99, 'https://multimedia.bbycastatic.ca/multimedia/products/500x500/166/16606/16606806.jpeg', NULL),
 ('G.Skill Ripjaws V 16GB 2x8GB', 3, 'DDR4-3600 16GB RAM kit for high-speed performance', 79.99, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCAhzv_WQxby2v4phmlZ-UW-0hGWsIIG4A3w&s', NULL),
 ('HyperX Fury 16GB 2x8GB', 3, 'DDR4-3200 16GB RAM kit for general-purpose use', 64.99, 'https://m.media-amazon.com/images/I/71fLAyJ945L.jpg', NULL),
 ('Corsair Dominator Platinum RGB 32GB 2x16GB', 3, 'DDR4-3600 High-performance 32GB RAM kit with RGB lighting', 189.99, 'https://m.media-amazon.com/images/I/61fdyHiQeRL._AC_UF894,1000_QL80_.jpg', NULL),
@@ -239,11 +258,11 @@ INSERT INTO productinventory (productId, warehouseId, quantity, price) VALUES
 -- Customers
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES 
 ('admin', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', 'admin'),
-('Marques', 'Brownlee', 'marc.brown@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'marqbrown', 'marqbrown'),
-('Linus', 'Tech Tips', 'linus.tech@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'linustechtips', 'linustechtips'),
+('Rin', 'Meng', 'rinmeng@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'rin', 'rin'),
+('Noah', 'Stewart', 'NoahStewart@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'noah', 'noah'),
 ('Candace', 'Cole', 'candace.cole@example.com', '123-456-7890', '123 Maple Street', 'Toronto', 'ON', 'M5H 2N2', 'Canada', 'candacecole', 'candacecole'),
 ('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth', 'test');
-
+('John', 'Doe', 'john.doe@example.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'john', 'john');
 
 -- Order 1 can be shipped as have enough inventory
 DECLARE @orderId int
