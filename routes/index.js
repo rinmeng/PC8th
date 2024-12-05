@@ -8,8 +8,8 @@ router.get('/', async function (req, res) {
     let recommendedProducts = [];
 
     // remove this line when done testing
-    req.session.user = "rin";
-    req.session.userid = "2";
+    // req.session.user = "rin";
+    // req.session.userid = "2";
 
     if (req.session.userid) {
         try {

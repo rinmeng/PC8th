@@ -242,12 +242,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
   <div class="glass-slate py-1 px-2 rounded-xl fixed z-50 text-gray-400 bottom-4 left-1/2 transform -translate-x-1/2 ">
     <h1>
       &copy; 2024 PC8th by
@@ -301,24 +295,32 @@
         }
       });
 
+      const category = document.getElementById('category');
       const categoryBlocks = document.querySelectorAll('.category-block');
 
+      // Set initial opacity to 0 and add transition for all category blocks
+      categoryBlocks.forEach(block => {
+        block.classList.add('opacity-0');
+      });
+
+      // Observer to watch for when the 'category' element is in view
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            const index = entry.target.getAttribute('data-index');
-            // Apply the staggered animation based on the index
-            setTimeout(() => {
-              entry.target.classList.add('opacity-100');
-            }, index * 100); // Stagger the animation by 200ms for each element
-            observer.unobserve(entry.target); // Stop observing after animation is triggered
+            // When category section comes into view, stagger the fade-in of category blocks
+            categoryBlocks.forEach((block, index) => {
+              setTimeout(() => {
+                block.classList.add('opacity-100'); // Fade in each block
+              }, index * 100); // Stagger by 100ms for each block
+            });
+
+            observer.unobserve(entry.target); // Stop observing the category section after triggering
           }
         });
-      }, { threshold: 0.5 }); // Trigger when 50% of the element is in view
+      }, { threshold: 0.5 }); // Trigger when 50% of the category section is in view
 
-      categoryBlocks.forEach(block => {
-        observer.observe(block);
-      });
+      observer.observe(category);
+
 
 
     });

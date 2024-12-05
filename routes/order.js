@@ -8,50 +8,52 @@ router.get("/", async function (req, res, next) {
     res.write("<title>PC8th Order Processing</title>");
     res.write('<link href="/style.css" rel="stylesheet">');
     res.write('<body class="bg-slate-600">');
-    res.write(`<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl text-white">
-        <!-- Logo -->
-        <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
+    res.write(`<nav class=" text-white z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+                <!-- Logo -->
+                <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
 
-        <!-- Navigation Links -->
-        <div class="flex justify-center w-full">
-            <!-- Product List -->
-            <div class="relative group p-3">
-                <a class="opacity-50 hover:opacity-100 t200e" href="/listprod">Product List</a>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
-                </div>
-            </div>
-
-            <!-- Order List -->
-            <div class="relative group p-3">
-                <a class="opacity-50 hover:opacity-100 t200e" href="/listorder">Order List</a>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
-                </div>
-            </div>
-
-            <!-- My Cart -->
-            <div class="relative group p-3">
-                <a class="opacity-50 hover:opacity-100 t200e" href="/showcart">My Cart</a>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
-                </div>
-            </div>
-        </div>
-
-        <!-- Login -->
-        <div class="text-center items-center">
-            <!-- If logged in, show user's name and logout button -->
-            ${req.session.authenticated ? `
-                <p class="text-white px-3 w-full">Hey,
-                    <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
-                        <strong>${req.session.user}</strong>
+                <!-- Navigation Links -->
+                <div class="flex justify-center w-full">
+                    <!-- Product List -->
+                    <a href="/listprod" class="relative group p-3">
+                        <div class="opacity-50 group-hover:opacity-100 t200e">Product List</div>
+                        <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                        </div>
                     </a>
-                </p>
-                <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
-            ` : `
-                <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-            `}
-        </div>
-    </nav>`);
+
+                    <!-- Order List -->
+                    <a href="/listorder" class="relative group p-3">
+                        <div class="opacity-50 group-hover:opacity-100 t200e">Order List</div>
+                        <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                        </div>
+                    </a>
+
+                    <!-- My Cart -->
+                    <a href="/showcart" class="relative group p-3">
+                        <div class="opacity-50 group-hover:opacity-100 t200e">My Cart</div>
+                        <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Login -->
+                <div class="text-center items-center">
+                    <!-- If logged in, show user's name and logout button -->
+                    ${req.session.authenticated ? `
+                        <p class="text-white px-3 w-full">Hey,
+                        <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
+                            <strong>${req.session.user}</strong>
+                        </a>
+                        </p>
+                        <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
+                    ` : `
+                        <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+                    `}
+                </div>
+            </nav>
+        `);
     res.write('<div class="opacity-0 animate-fade-in-instant">');
+    res.write(`<div class="py-28"></div>`);
     let productList = req.session.productList || [];
 
     if (!req.query.userId) {

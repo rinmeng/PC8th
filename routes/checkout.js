@@ -82,7 +82,7 @@ router.get('/', function (req, res, next) {
                             </p>
                             <div class="flex space-x-4 w-full justify-center mt-4">
                                 <a href="/showcart" class="btn-red">
-                                    &larr; Cancel
+                                    &larr; Back to Cart
                                 </a>
                                 <a href="/order?userId=${req.session.user}&password=${password}"
                                 class="btn">
@@ -145,7 +145,7 @@ router.get('/', function (req, res, next) {
                             <div class="flex flex-col space-y-4">
                                 <div class="flex justify-center space-x-4 text-center ">
                                     <a href="/showcart" class="btn-gray flex-1">
-                                        &larr; Cancel
+                                        &larr; Back
                                     </a>
                                     <button 
                                         type="reset" 
