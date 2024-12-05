@@ -6,6 +6,9 @@ const auth = require('../auth');
 router.get('/', function (req, res, next) {
     res.setHeader('Content-Type', 'text/html');
 
+    req.session.user = "rin";
+    req.session.userid = "2";
+
     // Fetch customer data from the database
     (async function () {
         try {
@@ -132,16 +135,15 @@ router.get('/', function (req, res, next) {
             // After customer details query, add:
             let orderHistory = await pool.request()
                 .input('customerId', sql.Int, req.session.userid)
-                .query(`
-        SELECT os.orderId, os.orderDate, os.totalAmount,
-               op.quantity, op.price,
-               p.productName, p.productDesc
-        FROM ordersummary os
-        JOIN orderproduct op ON os.orderId = op.orderId
-        JOIN product p ON op.productId = p.productId
-        WHERE os.customerId = @customerId
-        ORDER BY os.orderDate DESC
-    `);
+                .query(`SELECT os.orderId, os.orderDate, os.totalAmount,
+                            op.quantity, op.price,
+                            p.productName, p.productDesc
+                        FROM ordersummary os
+                        JOIN orderproduct op ON os.orderId = op.orderId
+                        JOIN product p ON op.productId = p.productId
+                        WHERE os.customerId = @customerId
+                        ORDER BY os.orderDate DESC
+                    `);
             res.write(`<h2 class="text-4xl  my-6 font-light text-center">Order History</h2>`);
             // After customer info display, before res.end():
             res.write(`<div class="m-6 w-3/4 grid grid-cols-2 gap-4 mx-auto">
@@ -168,14 +170,14 @@ router.get('/', function (req, res, next) {
                                             <div class="text-slate-400">Order ID: <span class="text-white">#${order.orderId}</span></div>
                                             <div class="text-slate-400">Date: <span class="text-white">${order.orderDate}</span></div>
                                         </div>
-                                        <div class="grid grid-cols-3 gap-4 text-sm mb-4 border-b border-slate-700">
+                                        <div class="grid grid-cols-3 gap-4 text-sm mb-2 border-b border-slate-700">
                                             <div class="text-slate-400">Product</div>
                                             <div class="text-slate-400 text-center">Quantity</div>
                                             <div class="text-slate-400 text-right">Price</div>
                                         </div>
                                         ${order.items.map(item => `
-                                            <div class="grid grid-cols-3 gap-4 text-sm border-b border-slate-700">
-                                                <div class="text-white">${item.productName}</div>
+                                            <div class="grid items-center grid-cols-3 gap-4 py-2 text-sm border-b border-slate-700">
+                                                <div class="text-white text-left">${item.productName}</div>
                                                 <div class="text-white text-center">${item.quantity}</div>
                                                 <div class="text-green-400 text-right">$${item.price.toFixed(2)}</div>
                                             </div>
