@@ -129,6 +129,66 @@ router.get('/', function (req, res, next) {
 
             res.write('</div>'); // End of grid
             res.write('</div>'); // End of container
+            // After customer details query, add:
+            let orderHistory = await pool.request()
+                .input('customerId', sql.Int, req.session.userid)
+                .query(`
+        SELECT os.orderId, os.orderDate, os.totalAmount,
+               op.quantity, op.price,
+               p.productName, p.productDesc
+        FROM ordersummary os
+        JOIN orderproduct op ON os.orderId = op.orderId
+        JOIN product p ON op.productId = p.productId
+        WHERE os.customerId = @customerId
+        ORDER BY os.orderDate DESC
+    `);
+            res.write(`<h2 class="text-4xl  my-6 font-light text-center">Order History</h2>`);
+            // After customer info display, before res.end():
+            res.write(`<div class="m-6 w-3/4 grid grid-cols-2 gap-4 mx-auto">
+        ${orderHistory.recordset.length === 0 ?
+                    '<p class="text-center text-slate-400">No order history found</p>' :
+                    Object.values(orderHistory.recordset.reduce((acc, order) => {
+                        if (!acc[order.orderId]) {
+                            acc[order.orderId] = {
+                                orderId: order.orderId,
+                                orderDate: new Date(order.orderDate).toLocaleDateString(),
+                                totalAmount: order.totalAmount,
+                                items: []
+                            };
+                        }
+                        acc[order.orderId].items.push({
+                            productName: order.productName,
+                            quantity: order.quantity,
+                            price: order.price
+                        });
+                        return acc;
+                    }, {})).map(order => `
+                                    <div class="text-xl bg-slate-800 rounded-lg shadow-lg mb-6 p-6">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <div class="text-slate-400">Order ID: <span class="text-white">#${order.orderId}</span></div>
+                                            <div class="text-slate-400">Date: <span class="text-white">${order.orderDate}</span></div>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-4 text-sm mb-4 border-b border-slate-700">
+                                            <div class="text-slate-400">Product</div>
+                                            <div class="text-slate-400 text-center">Quantity</div>
+                                            <div class="text-slate-400 text-right">Price</div>
+                                        </div>
+                                        ${order.items.map(item => `
+                                            <div class="grid grid-cols-3 gap-4 text-sm border-b border-slate-700">
+                                                <div class="text-white">${item.productName}</div>
+                                                <div class="text-white text-center">${item.quantity}</div>
+                                                <div class="text-green-400 text-right">$${item.price.toFixed(2)}</div>
+                                            </div>
+                                        `).join('')}
+                                        <div class="mt-4 pt-4 ">
+                                            <div class="text-right text-slate-400">Total: <span class="text-green-400 font-semibold">$${order.totalAmount.toFixed(2)}</span></div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                        </div>
+                    `);
+
+
             res.write('</body>');
             res.end();
 
