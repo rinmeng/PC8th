@@ -1,5 +1,7 @@
+DROP DATABASE IF EXISTS shop;
 CREATE DATABASE shop;
-USE shop;
+
+USE shop
 
 
 DROP VIEW userInterest;
@@ -500,4 +502,4 @@ DECLARE @orderId40 int
 INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2024-04-12 16:25:50', 11999.80)
 SELECT @orderId40 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId40, 4, 20, 599.99);
-
+GO

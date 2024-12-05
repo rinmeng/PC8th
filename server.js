@@ -31,11 +31,10 @@ Getting sqlserver initialized:
   docker exec -it cosc304-sqlserver bash
 In root project folder:
   docker cp ./ddl/SQLServer_shop.ddl cosc304-sqlserver:/
-
 In bash: 
-  cd opt/mssql-tools18/bin
-  ./sqlcmd -U sa -P 304#sa#pw -C
-  ./sqlcmd -U sa -P 304#sa#pw -C -e -i /SQLServer_shop.ddl
+  ./opt/mssql-tools18/bin/sqlcmd -U sa -P 304#sa#pw -C
+  CREATE database shop;
+  ./opt/mssql-tools18/bin/sqlcmd -U sa -P 304#sa#pw -C -e -i /SQLServer_shop.ddl
 In SQLCMD:
   SELECT name FROM sys.databases;
   go
@@ -53,19 +52,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // This DB Config is accessible globally
 dbConfig = {
-  server: 'cosc304_sqlserver',
+  user: 'sa', // Changed from userName
+  password: '304#sa#pw',
+  server: 'cosc304-sqlserver', // Note the hyphen, not underscore
+  port: 1433, // Explicitly specify port
   database: 'shop',
-  authentication: {
-    type: 'default',
-    options: {
-      userName: 'sa',
-      password: '304#sa#pw'
-    }
-  },
   options: {
-    encrypt: false,
-    enableArithAbort: false,
-    database: 'shop'
+    encrypt: false, // Keep as is
+    trustServerCertificate: true, // Add this to bypass SSL validation for local dev
+    enableArithAbort: false // Keep your existing setting
   }
 }
 
@@ -79,7 +74,7 @@ app.use(session({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: 60000,
+    maxAge: 24 * 60 * 60 * 1000,
   }
 }))
 
