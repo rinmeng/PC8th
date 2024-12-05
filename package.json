@@ -16,7 +16,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chart.js": "^4.4.6",
+    "canvas": "^2.11.2",
+    "chart.js": "^4.4.7",
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",

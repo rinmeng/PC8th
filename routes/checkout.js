@@ -5,8 +5,6 @@ const sql = require('mssql');
 router.get('/', function (req, res, next) {
     res.setHeader('Content-Type', 'text/html');
 
-
-
     (async function () {
         try {
             res.write(`
@@ -14,6 +12,7 @@ router.get('/', function (req, res, next) {
         <link href="/style.css" rel="stylesheet">
         <body class="h-screen bg-slate-600  text-white opacity-0 animate-fade-in-instant">
             <nav class="z-10 mt-6 fixed left-1/2 transform -translate-x-1/2 w-11/12 mx-auto glass-slate rounded-full flex justify-between items-center px-10 py-8 text-2xl">
+                <h1 id="navhint" class="t500e opacity-100 text-7xl">&larr;</h1>
                 <!-- Logo -->
                 <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
 
@@ -80,7 +79,7 @@ router.get('/', function (req, res, next) {
                                 You are logged in as <strong>${req.session.user}</strong>.
                                 <br>Please confirm that you want to submit your order under this account.
                             </p>
-                            <div class="flex space-x-4 w-full justify-center mt-4">
+                            <div class="flex space-x-4 w-full justif    y-center mt-4">
                                 <a href="/showcart" class="btn-red">
                                     &larr; Back to Cart
                                 </a>
