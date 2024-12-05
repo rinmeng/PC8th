@@ -27,7 +27,7 @@ async function validateRegister(req, res) {
             .input('userid', sql.VarChar, userid)
             .query('SELECT * FROM customer WHERE userid = @userid');
         if (checkResult.recordset.length > 0) {
-            req.session.registerMessage = "Sorry, the username already exists. Please choose another.";
+            req.session.registerMessage = "Sorry, the username " + userid + " already exists. Please choose another one.";
             req.session.registerInput = req.body;
             return res.redirect('/register');
         }
@@ -61,10 +61,10 @@ async function validateRegister(req, res) {
 
         req.session.authenticated = true;
         req.session.loginMessage = "Registration successful. Please login to continue.";
-        res.redirect('/register');
+        res.redirect('/login');
     } catch (err) {
         console.error(err);
-        req.session.loginMessage = "An error occurred while processing your login request. Please try again later.";
+        req.session.loginMessage = "Registration failed. Please try again.";
         res.redirect('/register');
 
     }

@@ -85,7 +85,7 @@ CREATE TABLE orderproduct (
     FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
         ON UPDATE CASCADE ON DELETE NO ACTION,
     FOREIGN KEY (productId) REFERENCES product(productId)
-        ON UPDATE CASCADE ON DELETE NO ACTION
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE incart (
@@ -97,7 +97,7 @@ CREATE TABLE incart (
     FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
         ON UPDATE CASCADE ON DELETE NO ACTION,
     FOREIGN KEY (productId) REFERENCES product(productId)
-        ON UPDATE CASCADE ON DELETE NO ACTION
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE warehouse (
@@ -123,7 +123,7 @@ CREATE TABLE productinventory (
     price               DECIMAL(10,2),  
     PRIMARY KEY (productId, warehouseId),   
     FOREIGN KEY (productId) REFERENCES product(productId)
-        ON UPDATE CASCADE ON DELETE NO ACTION,
+        ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (warehouseId) REFERENCES warehouse(warehouseId)
         ON UPDATE CASCADE ON DELETE NO ACTION
 );
@@ -400,3 +400,104 @@ INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-1
 SELECT @orderId20 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId20, 2, 10, 599.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId20, 5, 9, 399.99);
+
+DECLARE @orderId21 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2023-12-15 14:22:31', 3299.94)
+SELECT @orderId21 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId21, 3, 6, 549.99);
+
+DECLARE @orderId22 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2023-12-28 16:45:12', 4799.92)
+SELECT @orderId22 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId22, 4, 8, 599.99);
+
+DECLARE @orderId23 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2024-01-03 10:15:00', 2999.95)
+SELECT @orderId23 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId23, 2, 5, 599.99);
+
+DECLARE @orderId24 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2024-01-15 11:30:45', 3199.92)
+SELECT @orderId24 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId24, 5, 8, 399.99);
+
+DECLARE @orderId25 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2024-01-28 09:20:18', 5499.90)
+SELECT @orderId25 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId25, 1, 11, 499.99);
+
+DECLARE @orderId26 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2024-02-05 13:45:22', 4949.91)
+SELECT @orderId26 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId26, 3, 9, 549.99);
+
+DECLARE @orderId27 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2024-02-14 15:10:33', 4799.92)
+SELECT @orderId27 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId27, 4, 8, 599.99);
+
+DECLARE @orderId28 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2024-02-28 12:25:55', 2999.94)
+SELECT @orderId28 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId28, 2, 5, 599.99);
+
+DECLARE @orderId29 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2024-03-05 16:40:12', 3199.92)
+SELECT @orderId29 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId29, 5, 8, 399.99);
+
+DECLARE @orderId30 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2024-03-15 10:55:28', 5499.89)
+SELECT @orderId30 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId30, 1, 11, 499.99);
+
+DECLARE @orderId31 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2024-03-20 09:15:33', 5999.90)
+SELECT @orderId31 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId31, 2, 10, 599.99);
+
+DECLARE @orderId32 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2024-03-23 14:22:45', 6599.88)
+SELECT @orderId32 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId32, 3, 12, 549.99);
+
+DECLARE @orderId33 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2024-03-25 16:30:12', 7199.88)
+SELECT @orderId33 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId33, 4, 12, 599.99);
+
+DECLARE @orderId34 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2024-03-28 11:45:55', 7599.81)
+SELECT @orderId34 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId34, 5, 19, 399.99);
+
+DECLARE @orderId35 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2024-03-30 15:20:18', 7999.84)
+SELECT @orderId35 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId35, 1, 16, 499.99);
+
+DECLARE @orderId36 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2024-04-02 10:35:42', 8799.85)
+SELECT @orderId36 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId36, 3, 16, 549.99);
+
+DECLARE @orderId37 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2024-04-05 13:40:28', 9599.84)
+SELECT @orderId37 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId37, 4, 16, 599.99);
+
+DECLARE @orderId38 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2024-04-08 09:55:15', 9999.75)
+SELECT @orderId38 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId38, 2, 25, 399.99);
+
+DECLARE @orderId39 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2024-04-10 14:15:33', 10999.78)
+SELECT @orderId39 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId39, 1, 22, 499.99);
+
+DECLARE @orderId40 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2024-04-12 16:25:50', 11999.80)
+SELECT @orderId40 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId40, 4, 20, 599.99);
+
