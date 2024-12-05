@@ -176,6 +176,7 @@ INSERT INTO category(categoryName) VALUES ('Case');
 -- Products
 -- CPUs
 INSERT INTO product (productName, categoryId, productDesc, productPrice, productImageURL, productImage) VALUES 
+('Dr. Ramon Lawrence', 1, 'Comes with candy and an amazing 304 course.', 304.00, 'https://news.ok.ubc.ca/wp-content/uploads/2015/11/profile-main-ramon-lawrence-1000x600-1.jpg', NULL),
 ('Intel Core i9-13900K', 1, '12-core, 24-thread processor', 589.99, 'https://www.custompc.com/wp-content/sites/custompc/2023/02/intel-core-i9-13900K-review-01.jpg', NULL),
 ('AMD Ryzen 9 7950X', 1, '16-core, 32-thread processor', 799.99, 'https://www.club386.com/wp-content/uploads/2022/09/7950XtitleNTVzk6cR95BeD6.jpg', NULL),
 ('Intel Core i7-13700K', 1, '16-core, 24-thread processor', 409.99, 'https://cdn.mos.cms.futurecdn.net/vbWDMDAGjUAb9Vp53QN9x8.jpg', NULL),
@@ -261,7 +262,7 @@ INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state
 ('Rin', 'Meng', 'rinmeng@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'rin', 'rin'),
 ('Noah', 'Stewart', 'NoahStewart@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'noah', 'noah'),
 ('Candace', 'Cole', 'candace.cole@example.com', '123-456-7890', '123 Maple Street', 'Toronto', 'ON', 'M5H 2N2', 'Canada', 'candacecole', 'candacecole'),
-('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth', 'test');
+('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth', 'test'),
 ('John', 'Doe', 'john.doe@example.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'john', 'john');
 
 -- Order 1 can be shipped as have enough inventory
@@ -299,3 +300,103 @@ SELECT @orderId5 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 5, 4, 399.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 19, 2, 319.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 20, 3, 299.99);
+
+-- Added to visualize chart.js more
+
+DECLARE @orderId6 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-18 14:22:33', 1899.96)
+SELECT @orderId6 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId6, 1, 2, 499.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId6, 10, 3, 299.99);
+
+DECLARE @orderId7 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2019-10-19 18:15:00', 2599.94)
+SELECT @orderId7 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId7, 2, 3, 599.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId7, 15, 4, 199.99);
+
+DECLARE @orderId8 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-20 09:45:22', 2899.95)
+SELECT @orderId8 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId8, 4, 3, 649.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId8, 16, 2, 249.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId8, 21, 1, 449.99);
+
+DECLARE @orderId9 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (6, '2019-10-21 16:33:45', 3199.93)
+SELECT @orderId9 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId9, 9, 2, 549.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId9, 17, 3, 399.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId9, 25, 4, 299.99);
+
+DECLARE @orderId10 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-22 11:15:33', 7499.94)
+SELECT @orderId10 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId10, 3, 10, 409.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId10, 5, 8, 399.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId10, 2, 4, 599.99);
+
+DECLARE @orderId11 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-23 13:45:12', 9299.85)
+SELECT @orderId11 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId11, 4, 8, 649.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId11, 1, 7, 499.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId11, 9, 5, 549.99);
+
+DECLARE @orderId12 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2019-10-24 15:22:45', 8599.88)
+SELECT @orderId12 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId12, 2, 8, 599.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId12, 6, 10, 229.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId12, 19, 6, 319.99);
+
+DECLARE @orderId13 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2019-10-25 09:33:21', 6799.92)
+SELECT @orderId13 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId13, 5, 12, 399.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId13, 20, 6, 299.99);
+
+DECLARE @orderId14 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-26 14:55:18', 9999.80)
+SELECT @orderId14 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId14, 4, 10, 649.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId14, 9, 8, 549.99);
+
+DECLARE @orderId15 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-27 12:30:45', 4599.93)
+SELECT @orderId15 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId15, 3, 5, 409.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId15, 12, 3, 289.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId15, 18, 4, 199.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId15, 22, 2, 159.99);
+
+
+DECLARE @orderId16 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2019-10-28 10:15:22', 5899.92)
+SELECT @orderId16 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId16, 1, 6, 499.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId16, 4, 4, 649.99);
+
+DECLARE @orderId17 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-29 14:25:33', 6599.88)
+SELECT @orderId17 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId17, 2, 7, 599.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId17, 5, 5, 399.99);
+
+DECLARE @orderId18 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2019-10-30 16:40:15', 7899.95)
+SELECT @orderId18 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId18, 3, 8, 409.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId18, 9, 7, 549.99);
+
+DECLARE @orderId19 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-31 11:55:44', 8999.90)
+SELECT @orderId19 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId19, 4, 9, 649.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId19, 1, 8, 499.99);
+
+DECLARE @orderId20 int
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-11-01 09:30:18', 9599.88)
+SELECT @orderId20 = @@IDENTITY
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId20, 2, 10, 599.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId20, 5, 9, 399.99);
