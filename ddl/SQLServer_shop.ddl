@@ -316,7 +316,7 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId7
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId7, 15, 4, 199.99);
 
 DECLARE @orderId8 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-20 09:45:22', 2899.95)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-20 09:45:22', 2899.95)
 SELECT @orderId8 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId8, 4, 3, 649.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId8, 16, 2, 249.99)
@@ -357,7 +357,7 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId1
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId13, 20, 6, 299.99);
 
 DECLARE @orderId14 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-26 14:55:18', 9999.80)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-26 14:55:18', 9999.80)
 SELECT @orderId14 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId14, 4, 10, 649.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId14, 9, 8, 549.99);
@@ -390,7 +390,7 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId1
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId18, 9, 7, 549.99);
 
 DECLARE @orderId19 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-31 11:55:44', 8999.90)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-31 11:55:44', 8999.90)
 SELECT @orderId19 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId19, 4, 9, 649.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId19, 1, 8, 499.99);
