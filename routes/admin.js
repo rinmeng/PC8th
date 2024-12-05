@@ -773,7 +773,8 @@ router.get("/customers", function (req, res, next) {
       res.write(`
             <div class="text-center mb-12">
               <h1 class="title mb-4">Customers</h1>
-              <p class="text-slate-300 text-xl">Each customers info</p>
+              <p class="text-slate-300 text-xl">All info about customers.
+              </p>
             </div>`);
       for (let i = 0; i < result.recordset.length; i++) {
         let {
@@ -798,79 +799,36 @@ router.get("/customers", function (req, res, next) {
         }
 
         res.write(`
-          <div class="grid grid-cols-3 gap-4 p-6 transition-colors duration-200 border-b border-slate-200">
-            <div class="text-slate-300 ${bgColor} p-6 rounded-lg">Customer ID: ${customerId}</div>
-            <div class="text-slate-300 px-6">
-              First Name: 
-              <span class="font-mono bg-slate-700 px-3 py-1 rounded">
-                ${firstName}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              Last Name:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${lastName}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              Email:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${email}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              Phone Number:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${phonenum}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              Address:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${address}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              City:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${city}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              State:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${state}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              Postal Code:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${postalCode}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              Country:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${country}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              User ID:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${userid}
-              </span>
-            </div>
-            <div class="text-slate-300 px-6">
-              Password:
-              <span class="font-mono bg-slate-900 px-3 py-1 rounded">
-                ${password}
-              </span>
-            </div>
-          </div>
-          
-        `);
+            <div class="grid grid-cols-3 gap-6 p-8 items-center bg-slate-800 rounded-lg shadow-lg border 
+            border-slate-700 mb-8">
+              <div class="col-span-3 mb-4">
+                <div class="text-slate-100 text-center  text-xl font-semibold bg-slate-700 p-4 rounded-lg">
+                  Customer ID: ${customerId}
+                </div>
+              </div>${[
+            ['First Name', firstName],
+            ['Last Name', lastName == "" ? "null" : lastName],
+            ['Email', email],
+            ['Phone Number', phonenum],
+            ['Address', address],
+            ['City', city],
+            ['State', state],
+            ['Postal Code', postalCode],
+            ['Country', country],
+            ['User ID', userid],
+            ['Password', password],
+          ].map(([label, value]) => `
+      <div class="bg-slate-700 p-4 rounded-lg ">
+        <div class="text-slate-400 text-sm mb-1">${label}</div>
+        <div class="font-mono text-slate-100 bg-slate-900 p-2 rounded">
+          ${value}
+        </div>
+      </div>
+    `).join('')}
+  </div>
+`);
       }
-
+      // summary card
       res.write(` 
               <!-- Summary Card -->
               <div class="mt-8 text-center">
