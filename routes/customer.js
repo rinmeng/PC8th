@@ -4,11 +4,9 @@ const sql = require('mssql');
 const auth = require('../auth');
 
 router.get('/', function (req, res, next) {
-    res.setHeader('Content-Type', 'text/html');
-
     req.session.user = "rin";
     req.session.userid = "2";
-
+    res.setHeader('Content-Type', 'text/html');
     // Fetch customer data from the database
     (async function () {
         try {
@@ -153,7 +151,7 @@ router.get('/', function (req, res, next) {
                         if (!acc[order.orderId]) {
                             acc[order.orderId] = {
                                 orderId: order.orderId,
-                                orderDate: new Date(order.orderDate).toLocaleDateString(),
+                                orderDate: order.orderDate, // Store full date object
                                 totalAmount: order.totalAmount,
                                 items: []
                             };
@@ -164,33 +162,38 @@ router.get('/', function (req, res, next) {
                             price: order.price
                         });
                         return acc;
-                    }, {})).map(order => `
-                                    <div class="text-xl bg-slate-800 rounded-lg shadow-lg mb-6 p-6">
-                                        <div class="flex justify-between items-center mb-4">
-                                            <div class="text-slate-400">Order ID: <span class="text-white">#${order.orderId}</span></div>
-                                            <div class="text-slate-400">Date: <span class="text-white">${order.orderDate}</span></div>
-                                        </div>
-                                        <div class="grid grid-cols-3 gap-4 text-sm mb-2 border-b border-slate-700">
-                                            <div class="text-slate-400">Product</div>
-                                            <div class="text-slate-400 text-center">Quantity</div>
-                                            <div class="text-slate-400 text-right">Price</div>
-                                        </div>
-                                        ${order.items.map(item => `
-                                            <div class="grid items-center grid-cols-3 gap-4 py-2 text-sm border-b border-slate-700">
-                                                <div class="text-white text-left">${item.productName}</div>
-                                                <div class="text-white text-center">${item.quantity}</div>
-                                                <div class="text-green-400 text-right">$${item.price.toFixed(2)}</div>
-                                            </div>
-                                        `).join('')}
-                                        <div class="mt-4 pt-4 ">
-                                            <div class="text-right text-slate-400">Total: <span class="text-green-400 font-semibold">$${order.totalAmount.toFixed(2)}</span></div>
-                                        </div>
+                    }, {}))
+                        .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate)) // Sort descending
+                        .map(order => `
+                            <div class="text-xl bg-slate-800 rounded-lg shadow-lg mb-6 p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="text-slate-400">Order ID: <span class="text-white">#${order.orderId}</span></div>
+                                    <div class="text-slate-400">Date: <span class="text-white">
+                                    ${(() => {
+                                const d = new Date(order.orderDate);
+                                const day = String(d.getDate()).padStart(2, '0');
+                                const month = String(d.getMonth() + 1).padStart(2, '0');
+                                const year = d.getFullYear();
+                                return `${day}-${month}-${year}`;
+                            })()}</span></div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 text-sm mb-2 border-b border-slate-700">
+                                    <div class="text-slate-400">Product</div>
+                                    <div class="text-slate-400 text-center">Quantity</div>
+                                    <div class="text-slate-400 text-right">Price</div>
+                                </div>
+                                ${order.items.map(item => `
+                                    <div class="grid items-center grid-cols-3 gap-4 py-2 text-sm border-b border-slate-700">
+                                        <div class="text-white text-left">${item.productName}</div>
+                                        <div class="text-white text-center">${item.quantity}</div>
+                                        <div class="text-green-400 text-right">$${item.price.toFixed(2)}</div>
                                     </div>
                                 `).join('')}
-                        </div>
-                    `);
-
-
+                                <div class="mt-4 pt-4 ">
+                                    <div class="text-right text-slate-400">Total: <span class="text-green-400 font-semibold">$${order.totalAmount.toFixed(2)}</span></div>
+                                </div>
+                            </div>
+                        `).join('')} </div>`);
             res.write('</body>');
             res.end();
 

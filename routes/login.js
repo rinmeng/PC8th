@@ -5,9 +5,7 @@ const router = express.Router();
 router.get('/', function (req, res, next) {
     res.setHeader('Content-Type', 'text/html');
 
-    // remove this line when done testing
-    // req.session.user = "rin";
-    // req.session.userid = "2";
+
 
     // Set the message for the login, if present
     let loginMessage = false;
@@ -20,7 +18,8 @@ router.get('/', function (req, res, next) {
     res.render('login', {
         title: "Login to PC8th",
         loginMessage: loginMessage,
-        username: req.session.user || false // Pass the username if authenticated
+        username: req.session.user || false, // Pass the username if authenticated
+        registerSuccess: req.session.registerMessage || false
     });
 });
 

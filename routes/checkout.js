@@ -80,11 +80,11 @@ router.get('/', function (req, res, next) {
                                 <br>Please confirm that you want to submit your order under this account.
                             </p>
                             <div class="flex space-x-4 w-full justif    y-center mt-4">
-                                <a href="/showcart" class="btn-red">
+                                <a href="/showcart" class="btn-red w-full text-center">
                                     &larr; Back to Cart
                                 </a>
                                 <a href="/order?userId=${req.session.user}&password=${password}"
-                                class="btn">
+                                class="btn w-full text-center">
                                     Confirm & Submit &rarr;
                                 </a>
                             </div>

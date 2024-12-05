@@ -77,10 +77,16 @@
                 <h1 class="title font-extralight text-4xl text-center opacity-0 animate-forms-2">Login to your account
                 </h1>
 
-                {{#if loginMessage}}
-                <h1 class="text-red-400 text-center">
-                    {{loginMessage}} <!-- Display the login message -->
+                {{#if registerSuccess}}
+                <h1 class="text-green-500 text-center">
+                    {{registerSuccess}}
                 </h1>
+                {{else}}
+                {{#if loginMessage}}
+                <h1 class="text-red-500 text-center">
+                    {{loginMessage}}
+                </h1>
+                {{/if}}
                 {{/if}}
 
                 <div class="grid grid-cols-1 gap-4">
