@@ -24,7 +24,7 @@
 
 @layer components {
   .glass-slate {
-    @apply bg-slate-800 backdrop-filter backdrop-blur-xl shadow-lg bg-opacity-25;
+    @apply bg-slate-400 backdrop-filter backdrop-blur-xl shadow-lg bg-opacity-25;
   }
 
   .strong-slate {
