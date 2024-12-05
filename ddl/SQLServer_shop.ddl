@@ -178,7 +178,7 @@ INSERT INTO category(categoryName) VALUES ('Case');
 -- Products
 -- CPUs
 INSERT INTO product (productName, categoryId, productDesc, productPrice, productImageURL, productImage) VALUES 
-('Dr. Ramon Lawrence', 1, 'Comes with candy and an amazing 304 course.', 304.00, 'https://news.ok.ubc.ca/wp-content/uploads/2015/11/profile-main-ramon-lawrence-1000x600-1.jpg', NULL),
+('Dr. Lawrence', 1, 'Comes with candy and an amazing 304 course.', 304.00, 'https://news.ok.ubc.ca/wp-content/uploads/2015/11/profile-main-ramon-lawrence-1000x600-1.jpg', NULL),
 ('Intel Core i9-13900K', 1, '12-core, 24-thread processor', 589.99, 'https://www.custompc.com/wp-content/sites/custompc/2023/02/intel-core-i9-13900K-review-01.jpg', NULL),
 ('AMD Ryzen 9 7950X', 1, '16-core, 32-thread processor', 799.99, 'https://www.club386.com/wp-content/uploads/2022/09/7950XtitleNTVzk6cR95BeD6.jpg', NULL),
 ('Intel Core i7-13700K', 1, '16-core, 24-thread processor', 409.99, 'https://cdn.mos.cms.futurecdn.net/vbWDMDAGjUAb9Vp53QN9x8.jpg', NULL),
