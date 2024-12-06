@@ -29,18 +29,17 @@ const app = express();
 Getting sqlserver initialized:
   docker-compose up -d
   docker exec -it cosc304-sqlserver bash
-In root project folder:
+4.1 In root project folder (copy folder):
   docker cp ./ddl/SQLServer_shop.ddl cosc304-sqlserver:/
 In bash: 
+
+// Access server
   ./opt/mssql-tools18/bin/sqlcmd -U sa -P 304#sa#pw -C
   CREATE database shop;
+  4.2 In root bash (push ddl to database):
   ./opt/mssql-tools18/bin/sqlcmd -U sa -P 304#sa#pw -C -e -i /SQLServer_shop.ddl
-In SQLCMD:
-  SELECT name FROM sys.databases;
-  go
 
-  USE shop
-  go
+
 */
 
 // use public
