@@ -68,6 +68,8 @@ services:
                  is_up=$$?
                  sleep 5 
                done
+               # Create the 'shop' database
+               /opt/mssql-tools18/bin/sqlcmd -U sa -P $$SA_PASSWORD -C -Q "CREATE DATABASE shop"
                for foo in /scripts/SQLServer*.ddl
                  do /opt/mssql-tools18/bin/sqlcmd -U sa -P $$SA_PASSWORD -C -l 30 -e -i $$foo
                done
